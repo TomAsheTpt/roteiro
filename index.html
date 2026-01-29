@@ -1,0 +1,2317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horários 2026 - Favela Brass</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #3E0B59 0%, #5A0E7A 100%);
+            min-height: 100vh;
+            color: #fff;
+            padding: 20px;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        h1 {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 5px;
+            background: linear-gradient(90deg, #FEF100, #62CC3C);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 20px;
+            font-size: 1em;
+        }
+
+        /* Stats */
+        .stats {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .stat {
+            background: rgba(255,255,255,0.05);
+            padding: 12px 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #FEF100;
+        }
+        .stat-label {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9em;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .tab {
+            background: rgba(255,255,255,0.05);
+            padding: 10px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.7);
+            font-size: 0.95em;
+            transition: all 0.2s;
+        }
+        .tab:hover { background: rgba(255,255,255,0.1); }
+        .tab.active {
+            background: rgba(254, 241, 0, 0.15);
+            color: #FEF100;
+            border-color: rgba(254, 241, 0, 0.3);
+        }
+
+        /* Content sections */
+        .content-section { display: none; }
+        .content-section.active { display: block; }
+
+        /* Cards */
+        .card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .card h2 {
+            color: #FEF100;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 1.2em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card h2 .count {
+            font-size: 0.7em;
+            color: rgba(255,255,255,0.5);
+            font-weight: normal;
+        }
+        .card h3 {
+            color: #62CC3C;
+            font-size: 1em;
+            margin: 15px 0 10px 0;
+            padding: 6px 12px;
+            background: rgba(98, 204, 60, 0.1);
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        /* Lesson rows */
+        .lessons {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .row {
+            display: grid;
+            grid-template-columns: 100px 1fr 90px 60px;
+            gap: 12px;
+            align-items: center;
+            padding: 10px 14px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            font-size: 0.95em;
+        }
+        .row:hover {
+            background: rgba(255,255,255,0.06);
+        }
+        .row.activity {
+            background: rgba(254, 241, 0, 0.08);
+            border-left: 3px solid #FEF100;
+        }
+        .row .time {
+            color: #62CC3C;
+            font-variant-numeric: tabular-nums;
+            font-weight: 500;
+        }
+        .row .name {
+            color: #fff;
+        }
+        .row .teacher {
+            color: rgba(255,255,255,0.7);
+        }
+        .row .room {
+            color: rgba(255,255,255,0.5);
+            text-align: right;
+            font-size: 0.9em;
+        }
+        .row .location {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85em;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.75em;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        .badge-libras {
+            background: rgba(0, 188, 212, 0.2);
+            color: #00bcd4;
+        }
+        .badge-group {
+            background: rgba(254, 241, 0, 0.15);
+            color: #FEF100;
+        }
+
+        /* Time grid for Casa Tom - proper duration spans */
+        .time-grid {
+            display: grid;
+            gap: 3px;
+            margin-bottom: 20px;
+        }
+        .tg-header {
+            background: rgba(254, 241, 0, 0.15);
+            color: #FEF100;
+            text-align: center;
+            padding: 8px 4px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+        .tg-header:first-child {
+            background: transparent;
+        }
+        .tg-time {
+            color: #62CC3C;
+            font-variant-numeric: tabular-nums;
+            font-weight: 500;
+            font-size: 0.85em;
+            padding: 4px;
+            display: flex;
+            align-items: flex-start;
+        }
+        .tg-cell {
+            background: rgba(255,255,255,0.06);
+            border-radius: 6px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .tg-cell.activity {
+            background: rgba(254, 241, 0, 0.12);
+            border-left: 3px solid #FEF100;
+        }
+        .cell-name {
+            color: #fff;
+            font-size: 0.9em;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+        .cell-teacher {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.8em;
+        }
+        .cell-end {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.75em;
+            margin-top: auto;
+        }
+
+        /* Teacher blocks for Curvelo */
+        .teacher-block {
+            margin-bottom: 15px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 8px;
+            padding: 10px;
+        }
+        .teacher-label {
+            color: #FEF100;
+            font-weight: 500;
+            margin-bottom: 8px;
+            padding-left: 5px;
+            font-size: 0.95em;
+        }
+
+        /* Teacher grid */
+        .teacher-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        .teacher-chip {
+            background: rgba(255,255,255,0.04);
+            border-radius: 8px;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .teacher-chip:hover {
+            background: rgba(255,255,255,0.08);
+        }
+        .teacher-chip .name { color: #fff; }
+        .teacher-chip .hours {
+            color: #62CC3C;
+            font-weight: bold;
+        }
+
+        /* Teacher detail view */
+        .teacher-detail {
+            display: none;
+        }
+        .teacher-detail.active {
+            display: block;
+        }
+        .back-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+        .back-btn:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            color: rgba(255,255,255,0.4);
+            margin-top: 25px;
+            font-size: 0.85em;
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            body { padding: 12px; font-size: 15px; }
+            .row {
+                grid-template-columns: 85px 1fr 70px;
+                padding: 8px 10px;
+                font-size: 0.9em;
+            }
+            .row .room { display: none; }
+            .stats { gap: 10px; }
+            .stat { padding: 10px 15px; }
+        }
+
+        /* Print */
+        @media print {
+            body { background: #fff; color: #000; }
+            .card { border: 1px solid #ccc; page-break-inside: avoid; }
+            h1 { color: #5A0E7A; -webkit-text-fill-color: #5A0E7A; }
+            .card h2, .card h3 { color: #5A0E7A; }
+            .row .time { color: #5A0E7A; }
+            .tabs { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Horários 2026</h1>
+        <p class="subtitle">Aulas particulares e atividades em grupo</p>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number">73</div>
+                <div class="stat-label">aulas</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">70</div>
+                <div class="stat-label">alunos</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">8</div>
+                <div class="stat-label">professores</div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <div class="tab active" onclick="showSection('dia')">Por Dia</div>
+            <div class="tab" onclick="showSection('local')">Por Local</div>
+            <div class="tab" onclick="showSection('professor')">Por Professor</div>
+            <div class="tab" onclick="showSection('escolas')">Escolas</div>
+        </div>
+
+        <div id="section-dia" class="content-section active">
+
+            <div class="card">
+                <h2>Segunda <span class="count">12 atividades</span></h2>
+                <h3>Casa Tom</h3>
+                <div class="teacher-block">
+                    <div class="teacher-label">Joana</div>
+                    <div class="lessons">
+                        <div class="row">
+                            <span class="time">18:00-18:30</span>
+                            <span class="name">[92] Emilly L.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">18:30-19:00</span>
+                            <span class="name">[300] Ryan N.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">19:00-19:30</span>
+                            <span class="name">[292] Rayane B.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">19:30-20:00</span>
+                            <span class="name">[181] Letícia B.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">20:00-20:30</span>
+                            <span class="name">[328] Valentina D.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">Pablo</div>
+                    <div class="lessons">
+                        <div class="row">
+                            <span class="time">18:00-18:30</span>
+                            <span class="name">[91] Emilly O.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">18:30-19:00</span>
+                            <span class="name">[60] Carlos C.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">19:00-19:30</span>
+                            <span class="name">[252] Miguel A.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">19:30-20:00</span>
+                            <span class="name">[214] Maria F.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">Tiago</div>
+                    <div class="lessons">
+                        <div class="row activity">
+                            <span class="time">18:30-19:30</span>
+                            <span class="name">Aula técnica percussão Banda 1 Preta</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">Uyrá</div>
+                    <div class="lessons">
+                        <div class="row activity">
+                            <span class="time">18:30-19:30</span>
+                            <span class="name">Aula técnica percussão Banda 1 Preta</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">Wesley</div>
+                    <div class="lessons">
+                        <div class="row activity">
+                            <span class="time">18:30-21:00</span>
+                            <span class="name">Ensaio da Banda 1 Preta</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Terça <span class="count">19 atividades</span></h2>
+                <h3>Casa Tom</h3>
+                <div class="teacher-block">
+                    <div class="teacher-label">Joana</div>
+                    <div class="lessons">
+                        <div class="row">
+                            <span class="time">18:00-18:30</span>
+                            <span class="name">[139] João M.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">18:30-19:00</span>
+                            <span class="name">[232] Maria C.</span>
+                        </div>
+                        <div class="row activity">
+                            <span class="time">19:00-20:00</span>
+                            <span class="name">Teoria 1</span>
+                        </div>
+                        <div class="row activity">
+                            <span class="time">20:00-21:00</span>
+                            <span class="name">Teoria 3B</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">Joe</div>
+                    <div class="lessons">
+                        <div class="row">
+                            <span class="time">17:30-18:00</span>
+                            <span class="name">[175] Larissa S.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">18:00-18:30</span>
+                            <span class="name">[30] Anita A.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">18:30-19:00</span>
+                            <span class="name">[283] Rafael R.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">19:00-19:30</span>
+                            <span class="name">[208] Marcos C.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">19:30-20:00</span>
+                            <span class="name">[285] Rafael S.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">20:00-20:30</span>
+                            <span class="name">[207] Marcelo J.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">20:30-21:00</span>
+                            <span class="name">[41] Arthur A.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">Raffaella</div>
+                    <div class="lessons">
+                        <div class="row">
+                            <span class="time">19:30-20:00</span>
+                            <span class="name">[49] Beatriz S.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">20:00-20:30</span>
+                            <span class="name">[9] Aisha B.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">Shanso</div>
+                    <div class="lessons">
+                        <div class="row">
+                            <span class="time">18:00-18:30</span>
+                            <span class="name">[130] Isadora N.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">18:30-19:00</span>
+                            <span class="name">[335] Vitória O.</span>
+                        </div>
+                    </div>
+                </div>
+                <h3>Casa Silvia</h3>
+                <div class="teacher-block">
+                    <div class="teacher-label">Pablo</div>
+                    <div class="lessons">
+                        <div class="row">
+                            <span class="time">18:00-18:30</span>
+                            <span class="name">[147] Juan N.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">18:30-19:00</span>
+                            <span class="name">[225] Maria S.</span>
+                        </div>
+                        <div class="row activity">
+                            <span class="time">19:00-20:00</span>
+                            <span class="name">Teoria 3A</span>
+                        </div>
+                        <div class="row activity">
+                            <span class="time">20:00-21:00</span>
+                            <span class="name">Teoria 2</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Quarta <span class="count">14 atividades</span></h2>
+                <h3>Casa Tom</h3>
+                <div class="teacher-block">
+                    <div class="teacher-label">Guidolini</div>
+                    <div class="lessons">
+                        <div class="row">
+                            <span class="time">19:00-21:00</span>
+                            <span class="name">[277] Pierre O.<span class="badge badge-libras">Libras</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">Henri</div>
+                    <div class="lessons">
+                        <div class="row activity">
+                            <span class="time">18:30-21:00</span>
+                            <span class="name">Ensaio da Banda 2 roxa</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">Joana</div>
+                    <div class="lessons">
+                        <div class="row">
+                            <span class="time">18:30-19:00</span>
+                            <span class="name">[213] Maria M.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">19:00-19:30</span>
+                            <span class="name">[301] Ryan P.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">19:30-20:00</span>
+                            <span class="name">[233] Maria A.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">20:00-20:30</span>
+                            <span class="name">[70] Davi F.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">Joe</div>
+                    <div class="lessons">
+                        <div class="row">
+                            <span class="time">16:30-17:00</span>
+                            <span class="name">[44] Aryelle S.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">17:00-17:30</span>
+                            <span class="name">[121] Heron C.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">Pablo</div>
+                    <div class="lessons">
+                        <div class="row">
+                            <span class="time">17:30-18:00</span>
+                            <span class="name">[76] Edileuza S.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">18:00-18:30</span>
+                            <span class="name">[123] Ingrid M.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">18:30-19:00</span>
+                            <span class="name">[10] Alex A.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">Tiago</div>
+                    <div class="lessons">
+                        <div class="row activity">
+                            <span class="time">18:30-19:30</span>
+                            <span class="name">Ensaio de percussão Banda 2 roxa</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">Uyrá</div>
+                    <div class="lessons">
+                        <div class="row activity">
+                            <span class="time">18:30-19:30</span>
+                            <span class="name">Ensaio de percussão Banda 2 roxa</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">Wesley</div>
+                    <div class="lessons">
+                        <div class="row activity">
+                            <span class="time">18:30-21:00</span>
+                            <span class="name">Ensaio da Banda 2 roxa</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Quinta <span class="count">7 atividades</span></h2>
+                <h3>Casa Tom</h3>
+                <div class="teacher-block">
+                    <div class="teacher-label">Anderson</div>
+                    <div class="lessons">
+                        <div class="row">
+                            <span class="time">18:00-18:30</span>
+                            <span class="name">[198] Luiz S.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">18:30-19:30</span>
+                            <span class="name">[81] Elisabete O., [228] Maria S.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">19:30-20:30</span>
+                            <span class="name">[47] Barbara A., [102] Felipe B.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">Marcos</div>
+                    <div class="lessons">
+                        <div class="row activity">
+                            <span class="time">18:30-19:30</span>
+                            <span class="name">Ensaio percussão Banda Preta</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">Shanso</div>
+                    <div class="lessons">
+                        <div class="row activity">
+                            <span class="time">18:30-21:00</span>
+                            <span class="name">Ensaio Banda 3 (verde)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Sexta <span class="count">10 atividades</span></h2>
+                <h3>Casa Tom</h3>
+                <div class="teacher-block">
+                    <div class="teacher-label">Anderson</div>
+                    <div class="lessons">
+                        <div class="row">
+                            <span class="time">18:00-18:30</span>
+                            <span class="name">[226] Maria O.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">18:30-19:30</span>
+                            <span class="name">[163] Kauê A., [305] Sara B.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">20:00-21:00</span>
+                            <span class="name">[39] Arthur R., [299] Ronald N.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">Marcos</div>
+                    <div class="lessons">
+                        <div class="row">
+                            <span class="time">18:30-19:00</span>
+                            <span class="name">[215] Maria S.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">19:00-19:30</span>
+                            <span class="name">[230] Maria A.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">Raffaella</div>
+                    <div class="lessons">
+                        <div class="row">
+                            <span class="time">17:30-18:00</span>
+                            <span class="name">[49] Beatriz S.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">18:00-18:30</span>
+                            <span class="name">[9] Aisha B.</span>
+                        </div>
+                    </div>
+                </div>
+                <h3>Casa Silvia</h3>
+                <div class="teacher-block">
+                    <div class="teacher-label">Wesley</div>
+                    <div class="lessons">
+                        <div class="row activity">
+                            <span class="time">18:30-21:00</span>
+                            <span class="name">Ensaio extra da Banda 1 (Preta)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Sábado <span class="count">31 atividades</span></h2>
+                <h3>Curvelo</h3>
+                <div class="teacher-block">
+                    <div class="teacher-label">André</div>
+                    <div class="lessons">
+                        <div class="row activity">
+                            <span class="time">09:30-10:30</span>
+                            <span class="name">Teoria Curvelo 1<span class="badge badge-libras">Libras</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">Joana</div>
+                    <div class="lessons">
+                        <div class="row">
+                            <span class="time">08:30-09:00</span>
+                            <span class="name">[53] Bernardo S., [227] Maria S.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">09:00-09:30</span>
+                            <span class="name">[156] Karina M., [316] Sophia C.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">09:30-10:00</span>
+                            <span class="name">[265] Nicole S.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">10:00-10:30</span>
+                            <span class="name">[110] Gerson N.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">10:30-11:00</span>
+                            <span class="name">[236] Marina M.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">Marcos</div>
+                    <div class="lessons">
+                        <div class="row">
+                            <span class="time">08:30-09:00</span>
+                            <span class="name">[14] Alice B., [326] Tiê F., [249] Miguel L.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">09:00-09:30</span>
+                            <span class="name">[692] Anny A.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">09:30-10:00</span>
+                            <span class="name">[277] Pierre O.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">10:30-11:00</span>
+                            <span class="name">[27] Andressa O.</span>
+                        </div>
+                        <div class="row activity">
+                            <span class="time">11:00-12:00</span>
+                            <span class="name">Ensaio de percussão Banda Amarela</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">Nathan</div>
+                    <div class="lessons">
+                        <div class="row activity">
+                            <span class="time">11:00-12:30</span>
+                            <span class="name">Ensaio da Banda Amarela</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">Raffaella</div>
+                    <div class="lessons">
+                        <div class="row">
+                            <span class="time">08:30-09:00</span>
+                            <span class="name">[125] Isabella M., [229] Maria A.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">09:00-09:30</span>
+                            <span class="name">[272] Paola G.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">09:30-10:00</span>
+                            <span class="name">[318] Suellen T.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">10:00-10:30</span>
+                            <span class="name">[21] Ana C., [48] Beahtriz S.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">10:30-11:00</span>
+                            <span class="name">[38] Arthur D., [313] Sophia B.</span>
+                        </div>
+                        <div class="row activity">
+                            <span class="time">11:00-12:30</span>
+                            <span class="name">Ensaio da Banda Amarela</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">Shanso</div>
+                    <div class="lessons">
+                        <div class="row">
+                            <span class="time">09:30-10:00</span>
+                            <span class="name">[63] César O.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">10:00-10:30</span>
+                            <span class="name">[129] Isac S.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">11:00-11:30</span>
+                            <span class="name">[154] Kailany S.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">11:30-12:00</span>
+                            <span class="name">[162] Kauany S.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">Sem prof</div>
+                    <div class="lessons">
+                        <div class="row activity">
+                            <span class="time">08:30-09:30</span>
+                            <span class="name">Teoria Curvelo 2</span>
+                        </div>
+                        <div class="row activity">
+                            <span class="time">10:30-11:30</span>
+                            <span class="name">Flauta Doce</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="section-local" class="content-section">
+
+            <div class="card">
+                <h2>Casa Tom <span class="count">54 atividades</span></h2>
+                <h3>Segunda</h3>
+                <div class="time-grid" style="grid-template-columns: 60px repeat(4, 1fr); grid-template-rows: auto repeat(6, 45px);">
+                    <div class="tg-header"></div>
+                    <div class="tg-header">Sala 1</div>
+                    <div class="tg-header">Sala 2</div>
+                    <div class="tg-header">Sala Grande</div>
+                    <div class="tg-header">Percussão</div>
+                    <div class="tg-time" style="grid-row: 2; grid-column: 1;">18:00</div>
+                    <div class="tg-time" style="grid-row: 3; grid-column: 1;">18:30</div>
+                    <div class="tg-time" style="grid-row: 4; grid-column: 1;">19:00</div>
+                    <div class="tg-time" style="grid-row: 5; grid-column: 1;">19:30</div>
+                    <div class="tg-time" style="grid-row: 6; grid-column: 1;">20:00</div>
+                    <div class="tg-time" style="grid-row: 7; grid-column: 1;">20:30</div>
+                    <div class="tg-cell" style="grid-row: 2 / span 1; grid-column: 2;">
+                        <div class="cell-name">🎷 [92] Emilly L.</div>
+                        <div class="cell-teacher">Joana</div>
+                        <div class="cell-end">até 18:30</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 3 / span 1; grid-column: 2;">
+                        <div class="cell-name">🎷 [300] Ryan N.</div>
+                        <div class="cell-teacher">Joana</div>
+                        <div class="cell-end">até 19:00</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 4 / span 1; grid-column: 2;">
+                        <div class="cell-name">🎷 [292] Rayane B.</div>
+                        <div class="cell-teacher">Joana</div>
+                        <div class="cell-end">até 19:30</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 5 / span 1; grid-column: 2;">
+                        <div class="cell-name">🎷 [181] Letícia B.</div>
+                        <div class="cell-teacher">Joana</div>
+                        <div class="cell-end">até 20:00</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 6 / span 1; grid-column: 2;">
+                        <div class="cell-name">🎷 [328] Valentina D.</div>
+                        <div class="cell-teacher">Joana</div>
+                        <div class="cell-end">até 20:30</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 2 / span 1; grid-column: 3;">
+                        <div class="cell-name">🎵 [91] Emilly O.</div>
+                        <div class="cell-teacher">Pablo</div>
+                        <div class="cell-end">até 18:30</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 3 / span 1; grid-column: 3;">
+                        <div class="cell-name">🎵 [60] Carlos C.</div>
+                        <div class="cell-teacher">Pablo</div>
+                        <div class="cell-end">até 19:00</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 4 / span 1; grid-column: 3;">
+                        <div class="cell-name">🎵 [252] Miguel A.</div>
+                        <div class="cell-teacher">Pablo</div>
+                        <div class="cell-end">até 19:30</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 5 / span 1; grid-column: 3;">
+                        <div class="cell-name">🎵 [214] Maria F.</div>
+                        <div class="cell-teacher">Pablo</div>
+                        <div class="cell-end">até 20:00</div>
+                    </div>
+                    <div class="tg-cell activity" style="grid-row: 3 / span 5; grid-column: 4;">
+                        <div class="cell-name">Ensaio da Banda 1 …</div>
+                        <div class="cell-teacher">Wesley</div>
+                        <div class="cell-end">até 21:00</div>
+                    </div>
+                    <div class="tg-cell activity" style="grid-row: 3 / span 2; grid-column: 5;">
+                        <div class="cell-name">Aula técnica percu…</div>
+                        <div class="cell-teacher">Uyrá, Tiago</div>
+                        <div class="cell-end">até 19:30</div>
+                    </div>
+                </div>
+                <h3>Terça</h3>
+                <div class="time-grid" style="grid-template-columns: 60px repeat(4, 1fr); grid-template-rows: auto repeat(7, 45px);">
+                    <div class="tg-header"></div>
+                    <div class="tg-header">Sala 1</div>
+                    <div class="tg-header">Sala 2</div>
+                    <div class="tg-header">Estúdio</div>
+                    <div class="tg-header">Sala Grande</div>
+                    <div class="tg-time" style="grid-row: 2; grid-column: 1;">17:30</div>
+                    <div class="tg-time" style="grid-row: 3; grid-column: 1;">18:00</div>
+                    <div class="tg-time" style="grid-row: 4; grid-column: 1;">18:30</div>
+                    <div class="tg-time" style="grid-row: 5; grid-column: 1;">19:00</div>
+                    <div class="tg-time" style="grid-row: 6; grid-column: 1;">19:30</div>
+                    <div class="tg-time" style="grid-row: 7; grid-column: 1;">20:00</div>
+                    <div class="tg-time" style="grid-row: 8; grid-column: 1;">20:30</div>
+                    <div class="tg-cell" style="grid-row: 2 / span 1; grid-column: 2;">
+                        <div class="cell-name">🎺 [175] Larissa S.</div>
+                        <div class="cell-teacher">Joe</div>
+                        <div class="cell-end">até 18:00</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 3 / span 1; grid-column: 2;">
+                        <div class="cell-name">🎺 [30] Anita A.</div>
+                        <div class="cell-teacher">Joe</div>
+                        <div class="cell-end">até 18:30</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 4 / span 1; grid-column: 2;">
+                        <div class="cell-name">🎺 [283] Rafael R.</div>
+                        <div class="cell-teacher">Joe</div>
+                        <div class="cell-end">até 19:00</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 5 / span 1; grid-column: 2;">
+                        <div class="cell-name">🎺 [208] Marcos C.</div>
+                        <div class="cell-teacher">Joe</div>
+                        <div class="cell-end">até 19:30</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 6 / span 1; grid-column: 2;">
+                        <div class="cell-name">🎺 [285] Rafael S.</div>
+                        <div class="cell-teacher">Joe</div>
+                        <div class="cell-end">até 20:00</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 7 / span 1; grid-column: 2;">
+                        <div class="cell-name">🎺 [207] Marcelo J.</div>
+                        <div class="cell-teacher">Joe</div>
+                        <div class="cell-end">até 20:30</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 8 / span 1; grid-column: 2;">
+                        <div class="cell-name">🎺 [41] Arthur A.</div>
+                        <div class="cell-teacher">Joe</div>
+                        <div class="cell-end">até 21:00</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 3 / span 1; grid-column: 3;">
+                        <div class="cell-name">🎵 [130] Isadora N.</div>
+                        <div class="cell-teacher">Shanso</div>
+                        <div class="cell-end">até 18:30</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 4 / span 1; grid-column: 3;">
+                        <div class="cell-name">🎵 [335] Vitória O.</div>
+                        <div class="cell-teacher">Shanso</div>
+                        <div class="cell-end">até 19:00</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 6 / span 1; grid-column: 3;">
+                        <div class="cell-name">🎺 [49] Beatriz S.</div>
+                        <div class="cell-teacher">Raffaella</div>
+                        <div class="cell-end">até 20:00</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 7 / span 1; grid-column: 3;">
+                        <div class="cell-name">🎺 [9] Aisha B.</div>
+                        <div class="cell-teacher">Raffaella</div>
+                        <div class="cell-end">até 20:30</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 3 / span 1; grid-column: 4;">
+                        <div class="cell-name">🎷 [139] João M.</div>
+                        <div class="cell-teacher">Joana</div>
+                        <div class="cell-end">até 18:30</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 4 / span 1; grid-column: 4;">
+                        <div class="cell-name">🎷 [232] Maria C.</div>
+                        <div class="cell-teacher">Joana</div>
+                        <div class="cell-end">até 19:00</div>
+                    </div>
+                    <div class="tg-cell activity" style="grid-row: 5 / span 2; grid-column: 5;">
+                        <div class="cell-name">Teoria 1</div>
+                        <div class="cell-teacher">Joana</div>
+                        <div class="cell-end">até 20:00</div>
+                    </div>
+                    <div class="tg-cell activity" style="grid-row: 7 / span 2; grid-column: 5;">
+                        <div class="cell-name">Teoria 3B</div>
+                        <div class="cell-teacher">Joana</div>
+                        <div class="cell-end">até 21:00</div>
+                    </div>
+                </div>
+                <h3>Quarta</h3>
+                <div class="time-grid" style="grid-template-columns: 60px repeat(4, 1fr); grid-template-rows: auto repeat(9, 45px);">
+                    <div class="tg-header"></div>
+                    <div class="tg-header">Sala 1</div>
+                    <div class="tg-header">Sala 2</div>
+                    <div class="tg-header">Sala Grande</div>
+                    <div class="tg-header">Percussão</div>
+                    <div class="tg-time" style="grid-row: 2; grid-column: 1;">16:30</div>
+                    <div class="tg-time" style="grid-row: 3; grid-column: 1;">17:00</div>
+                    <div class="tg-time" style="grid-row: 4; grid-column: 1;">17:30</div>
+                    <div class="tg-time" style="grid-row: 5; grid-column: 1;">18:00</div>
+                    <div class="tg-time" style="grid-row: 6; grid-column: 1;">18:30</div>
+                    <div class="tg-time" style="grid-row: 7; grid-column: 1;">19:00</div>
+                    <div class="tg-time" style="grid-row: 8; grid-column: 1;">19:30</div>
+                    <div class="tg-time" style="grid-row: 9; grid-column: 1;">20:00</div>
+                    <div class="tg-time" style="grid-row: 10; grid-column: 1;">20:30</div>
+                    <div class="tg-cell" style="grid-row: 2 / span 1; grid-column: 2;">
+                        <div class="cell-name">🎺 [44] Aryelle S.</div>
+                        <div class="cell-teacher">Joe</div>
+                        <div class="cell-end">até 17:00</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 3 / span 1; grid-column: 2;">
+                        <div class="cell-name">🎺 [121] Heron C.</div>
+                        <div class="cell-teacher">Joe</div>
+                        <div class="cell-end">até 17:30</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 6 / span 1; grid-column: 2;">
+                        <div class="cell-name">🎷 [213] Maria M.</div>
+                        <div class="cell-teacher">Joana</div>
+                        <div class="cell-end">até 19:00</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 7 / span 1; grid-column: 2;">
+                        <div class="cell-name">🎷 [301] Ryan P.</div>
+                        <div class="cell-teacher">Joana</div>
+                        <div class="cell-end">até 19:30</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 8 / span 1; grid-column: 2;">
+                        <div class="cell-name">🎷 [233] Maria A.</div>
+                        <div class="cell-teacher">Joana</div>
+                        <div class="cell-end">até 20:00</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 9 / span 1; grid-column: 2;">
+                        <div class="cell-name">🎷 [70] Davi F.</div>
+                        <div class="cell-teacher">Joana</div>
+                        <div class="cell-end">até 20:30</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 4 / span 1; grid-column: 3;">
+                        <div class="cell-name">🎵 [76] Edileuza S.</div>
+                        <div class="cell-teacher">Pablo</div>
+                        <div class="cell-end">até 18:00</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 5 / span 1; grid-column: 3;">
+                        <div class="cell-name">🎵 [123] Ingrid M.</div>
+                        <div class="cell-teacher">Pablo</div>
+                        <div class="cell-end">até 18:30</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 6 / span 1; grid-column: 3;">
+                        <div class="cell-name">🎵 [10] Alex A.</div>
+                        <div class="cell-teacher">Pablo</div>
+                        <div class="cell-end">até 19:00</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 7 / span 4; grid-column: 3;">
+                        <div class="cell-name">🥁 [277] Pierre O. 🤟</div>
+                        <div class="cell-teacher">Guidolini</div>
+                        <div class="cell-end">até 21:00</div>
+                    </div>
+                    <div class="tg-cell activity" style="grid-row: 6 / span 5; grid-column: 4;">
+                        <div class="cell-name">Ensaio da Banda 2 …</div>
+                        <div class="cell-teacher">Wesley, Henri</div>
+                        <div class="cell-end">até 21:00</div>
+                    </div>
+                    <div class="tg-cell activity" style="grid-row: 6 / span 2; grid-column: 5;">
+                        <div class="cell-name">Ensaio de percussã…</div>
+                        <div class="cell-teacher">Uyrá, Tiago</div>
+                        <div class="cell-end">até 19:30</div>
+                    </div>
+                </div>
+                <h3>Quinta</h3>
+                <div class="time-grid" style="grid-template-columns: 60px repeat(3, 1fr); grid-template-rows: auto repeat(6, 45px);">
+                    <div class="tg-header"></div>
+                    <div class="tg-header">Sala 1</div>
+                    <div class="tg-header">Sala Grande</div>
+                    <div class="tg-header">Percussão</div>
+                    <div class="tg-time" style="grid-row: 2; grid-column: 1;">18:00</div>
+                    <div class="tg-time" style="grid-row: 3; grid-column: 1;">18:30</div>
+                    <div class="tg-time" style="grid-row: 4; grid-column: 1;">19:00</div>
+                    <div class="tg-time" style="grid-row: 5; grid-column: 1;">19:30</div>
+                    <div class="tg-time" style="grid-row: 6; grid-column: 1;">20:00</div>
+                    <div class="tg-time" style="grid-row: 7; grid-column: 1;">20:30</div>
+                    <div class="tg-cell activity" style="grid-row: 3 / span 2; grid-column: 2;">
+                        <div class="cell-name">Ensaio percussão B…</div>
+                        <div class="cell-teacher">Marcos</div>
+                        <div class="cell-end">até 19:30</div>
+                    </div>
+                    <div class="tg-cell activity" style="grid-row: 3 / span 5; grid-column: 3;">
+                        <div class="cell-name">Ensaio Banda 3 (ve…</div>
+                        <div class="cell-teacher">Shanso</div>
+                        <div class="cell-end">até 21:00</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 2 / span 1; grid-column: 4;">
+                        <div class="cell-name">🥁 [198] Luiz S.</div>
+                        <div class="cell-teacher">Anderson</div>
+                        <div class="cell-end">até 18:30</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 3 / span 2; grid-column: 4;">
+                        <div class="cell-name">🥁 [81] Elisabete O., [228] Maria…</div>
+                        <div class="cell-teacher">Anderson</div>
+                        <div class="cell-end">até 19:30</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 5 / span 2; grid-column: 4;">
+                        <div class="cell-name">🥁 [47] Barbara A., [102] Felipe …</div>
+                        <div class="cell-teacher">Anderson</div>
+                        <div class="cell-end">até 20:30</div>
+                    </div>
+                </div>
+                <h3>Sexta</h3>
+                <div class="time-grid" style="grid-template-columns: 60px repeat(2, 1fr); grid-template-rows: auto repeat(7, 45px);">
+                    <div class="tg-header"></div>
+                    <div class="tg-header">Sala 1</div>
+                    <div class="tg-header">Percussão</div>
+                    <div class="tg-time" style="grid-row: 2; grid-column: 1;">17:30</div>
+                    <div class="tg-time" style="grid-row: 3; grid-column: 1;">18:00</div>
+                    <div class="tg-time" style="grid-row: 4; grid-column: 1;">18:30</div>
+                    <div class="tg-time" style="grid-row: 5; grid-column: 1;">19:00</div>
+                    <div class="tg-time" style="grid-row: 6; grid-column: 1;">19:30</div>
+                    <div class="tg-time" style="grid-row: 7; grid-column: 1;">20:00</div>
+                    <div class="tg-time" style="grid-row: 8; grid-column: 1;">20:30</div>
+                    <div class="tg-cell" style="grid-row: 2 / span 1; grid-column: 2;">
+                        <div class="cell-name">🎺 [49] Beatriz S.</div>
+                        <div class="cell-teacher">Raffaella</div>
+                        <div class="cell-end">até 18:00</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 3 / span 1; grid-column: 2;">
+                        <div class="cell-name">🎺 [9] Aisha B.</div>
+                        <div class="cell-teacher">Raffaella</div>
+                        <div class="cell-end">até 18:30</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 4 / span 1; grid-column: 2;">
+                        <div class="cell-name">🥁 [215] Maria S.</div>
+                        <div class="cell-teacher">Marcos</div>
+                        <div class="cell-end">até 19:00</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 5 / span 1; grid-column: 2;">
+                        <div class="cell-name">🥁 [230] Maria A.</div>
+                        <div class="cell-teacher">Marcos</div>
+                        <div class="cell-end">até 19:30</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 3 / span 1; grid-column: 3;">
+                        <div class="cell-name">🥁 [226] Maria O.</div>
+                        <div class="cell-teacher">Anderson</div>
+                        <div class="cell-end">até 18:30</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 4 / span 2; grid-column: 3;">
+                        <div class="cell-name">🥁 [163] Kauê A., [305] Sara B.</div>
+                        <div class="cell-teacher">Anderson</div>
+                        <div class="cell-end">até 19:30</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 7 / span 2; grid-column: 3;">
+                        <div class="cell-name">🥁 [39] Arthur R., [299] Ronald N…</div>
+                        <div class="cell-teacher">Anderson</div>
+                        <div class="cell-end">até 21:00</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Curvelo (Zola) <span class="count">30 atividades</span></h2>
+                <h3>Sábado</h3>
+                <div class="teacher-block">
+                    <div class="teacher-label">Sem prof</div>
+                    <div class="lessons">
+                        <div class="row activity">
+                            <span class="time">08:30-09:30</span>
+                            <span class="name">Teoria Curvelo 2<span class="badge badge-group">grupo</span></span>
+                        </div>
+                        <div class="row activity">
+                            <span class="time">10:30-11:30</span>
+                            <span class="name">Flauta Doce<span class="badge badge-group">grupo</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">André</div>
+                    <div class="lessons">
+                        <div class="row activity">
+                            <span class="time">09:30-10:30</span>
+                            <span class="name">Teoria Curvelo 1<span class="badge badge-libras">Libras</span><span class="badge badge-group">grupo</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">Joana</div>
+                    <div class="lessons">
+                        <div class="row">
+                            <span class="time">08:30-09:00</span>
+                            <span class="name">🥁 [53] Bernardo S., [227] Maria S.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">09:00-09:30</span>
+                            <span class="name">🥁 [156] Karina M., [316] Sophia C.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">09:30-10:00</span>
+                            <span class="name">🎷 [265] Nicole S.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">10:00-10:30</span>
+                            <span class="name">🎷 [110] Gerson N.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">10:30-11:00</span>
+                            <span class="name">🥁 [236] Marina M.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">Marcos</div>
+                    <div class="lessons">
+                        <div class="row">
+                            <span class="time">08:30-09:00</span>
+                            <span class="name">🥁 [14] Alice B., [326] Tiê F., [249] Miguel L.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">09:00-09:30</span>
+                            <span class="name">[692] Anny A.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">09:30-10:00</span>
+                            <span class="name">🥁 [277] Pierre O.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">10:30-11:00</span>
+                            <span class="name">🥁 [27] Andressa O.</span>
+                        </div>
+                        <div class="row activity">
+                            <span class="time">11:00-12:00</span>
+                            <span class="name">Ensaio de percussão Banda Amarela<span class="badge badge-group">grupo</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">Raffaella</div>
+                    <div class="lessons">
+                        <div class="row">
+                            <span class="time">08:30-09:00</span>
+                            <span class="name">🎺 [125] Isabella M., [229] Maria A.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">09:00-09:30</span>
+                            <span class="name">🎺 [272] Paola G.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">09:30-10:00</span>
+                            <span class="name">🎺 [318] Suellen T.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">10:00-10:30</span>
+                            <span class="name">🎺 [21] Ana C., [48] Beahtriz S.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">10:30-11:00</span>
+                            <span class="name">🎺 [38] Arthur D., [313] Sophia B.</span>
+                        </div>
+                        <div class="row activity">
+                            <span class="time">11:00-12:30</span>
+                            <span class="name">Ensaio da Banda Amarela<span class="badge badge-group">grupo</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-block">
+                    <div class="teacher-label">Shanso</div>
+                    <div class="lessons">
+                        <div class="row">
+                            <span class="time">09:30-10:00</span>
+                            <span class="name">🎵 [63] César O.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">10:00-10:30</span>
+                            <span class="name">🎵 [129] Isac S.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">11:00-11:30</span>
+                            <span class="name">🎵 [154] Kailany S.</span>
+                        </div>
+                        <div class="row">
+                            <span class="time">11:30-12:00</span>
+                            <span class="name">🎵 [162] Kauany S.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Casa Silvia <span class="count">5 atividades</span></h2>
+                <h3>Terça</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">18:00-18:30</span>
+                        <span class="name">🎵 [147] Juan N.</span>
+                        <span class="teacher">Pablo</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row">
+                        <span class="time">18:30-19:00</span>
+                        <span class="name">🎵 [225] Maria S.</span>
+                        <span class="teacher">Pablo</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">19:00-20:00</span>
+                        <span class="name">Teoria 3A<span class="badge badge-group">grupo</span></span>
+                        <span class="teacher">Pablo</span>
+                        <span class="room">Grande</span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">20:00-21:00</span>
+                        <span class="name">Teoria 2<span class="badge badge-group">grupo</span></span>
+                        <span class="teacher">Pablo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Sexta</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">18:30-21:00</span>
+                        <span class="name">Ensaio extra da Banda 1 (Preta)<span class="badge badge-group">grupo</span></span>
+                        <span class="teacher">Wesley</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="section-professor" class="content-section">
+            <div id="teacher-list" class="card">
+                <h2>Professores</h2>
+                <p style="color: rgba(255,255,255,0.5); font-size: 0.9em; margin-bottom: 15px;">Clique nome de professor para ver horário completo</p>
+                <div class="teacher-grid">
+                    <div class="teacher-chip" onclick="showTeacher('Joana_Saraiva')">
+                        <span class="name">Joana Saraiva →</span>
+                        <span class="hours">11.0h</span>
+                    </div>
+                    <div class="teacher-chip" onclick="showTeacher('Anderson_Clayton')">
+                        <span class="name">Anderson Clayton →</span>
+                        <span class="hours">9.0h</span>
+                    </div>
+                    <div class="teacher-chip" onclick="showTeacher('Raffaella_Goi')">
+                        <span class="name">Raffaella Goi →</span>
+                        <span class="hours">6.8h</span>
+                    </div>
+                    <div class="teacher-chip" onclick="showTeacher('Pablo_Beato')">
+                        <span class="name">Pablo Beato →</span>
+                        <span class="hours">6.5h</span>
+                    </div>
+                    <div class="teacher-chip" onclick="showTeacher('Wesley_de_Araújo')">
+                        <span class="name">Wesley de Araújo →</span>
+                        <span class="hours">6.2h</span>
+                    </div>
+                    <div class="teacher-chip" onclick="showTeacher('Marcos_Henrique')">
+                        <span class="name">Marcos Henrique →</span>
+                        <span class="hours">6.0h</span>
+                    </div>
+                    <div class="teacher-chip" onclick="showTeacher('Mangueirinha')">
+                        <span class="name">Mangueirinha →</span>
+                        <span class="hours">5.0h</span>
+                    </div>
+                    <div class="teacher-chip" onclick="showTeacher('Joe_Epstein')">
+                        <span class="name">Joe Epstein →</span>
+                        <span class="hours">4.5h</span>
+                    </div>
+                    <div class="teacher-chip" onclick="showTeacher('Henri_Patrique_de_Marzitelli')">
+                        <span class="name">Henri Patrique de Marzitelli →</span>
+                        <span class="hours">3.2h</span>
+                    </div>
+                    <div class="teacher-chip" onclick="showTeacher('Shanso_Araújo')">
+                        <span class="name">Shanso Araújo →</span>
+                        <span class="hours">3.0h</span>
+                    </div>
+                    <div class="teacher-chip" onclick="showTeacher('Nathan_Ferreira')">
+                        <span class="name">Nathan Ferreira →</span>
+                        <span class="hours">2.8h</span>
+                    </div>
+                    <div class="teacher-chip" onclick="showTeacher('Shanso_Araujo')">
+                        <span class="name">Shanso Araujo →</span>
+                        <span class="hours">2.5h</span>
+                    </div>
+                    <div class="teacher-chip" onclick="showTeacher('Guidolini')">
+                        <span class="name">Guidolini →</span>
+                        <span class="hours">2.0h</span>
+                    </div>
+                    <div class="teacher-chip" onclick="showTeacher('Dan_Di_Oliveiri')">
+                        <span class="name">Dan Di Oliveiri →</span>
+                        <span class="hours">1.0h</span>
+                    </div>
+                    <div class="teacher-chip" onclick="showTeacher('Tiago_Azevedo')">
+                        <span class="name">Tiago Azevedo →</span>
+                        <span class="hours">1.0h</span>
+                    </div>
+                    <div class="teacher-chip" onclick="showTeacher('Uyra_La_Rosa')">
+                        <span class="name">Uyrá La Rosa →</span>
+                        <span class="hours">1.0h</span>
+                    </div>
+                    <div class="teacher-chip" onclick="showTeacher('Andre_Sena')">
+                        <span class="name">André Sena →</span>
+                        <span class="hours">1.0h</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="teacher-Joana_Saraiva" class="teacher-detail card">
+                <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
+                <h2>Joana Saraiva <span class="count">11.0h/semana</span></h2>
+                <h3>Segunda</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">18:00-18:30</span>
+                        <span class="name">[92] Emilly L.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S1</span>
+                    </div>
+                    <div class="row">
+                        <span class="time">18:30-19:00</span>
+                        <span class="name">[300] Ryan N.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S1</span>
+                    </div>
+                    <div class="row">
+                        <span class="time">19:00-19:30</span>
+                        <span class="name">[292] Rayane B.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S1</span>
+                    </div>
+                    <div class="row">
+                        <span class="time">19:30-20:00</span>
+                        <span class="name">[181] Letícia B.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S1</span>
+                    </div>
+                    <div class="row">
+                        <span class="time">20:00-20:30</span>
+                        <span class="name">[328] Valentina D.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S1</span>
+                    </div>
+                </div>
+                <h3>Terça</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">18:00-18:30</span>
+                        <span class="name">[139] João M.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">Estúdio</span>
+                    </div>
+                    <div class="row">
+                        <span class="time">18:30-19:00</span>
+                        <span class="name">[232] Maria C.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">Estúdio</span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">19:00-20:00</span>
+                        <span class="name">Teoria 1</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">Grande</span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">20:00-21:00</span>
+                        <span class="name">Teoria 3B</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">Grande</span>
+                    </div>
+                </div>
+                <h3>Quarta</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">18:30-19:00</span>
+                        <span class="name">[213] Maria M.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S1</span>
+                    </div>
+                    <div class="row">
+                        <span class="time">19:00-19:30</span>
+                        <span class="name">[301] Ryan P.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S1</span>
+                    </div>
+                    <div class="row">
+                        <span class="time">19:30-20:00</span>
+                        <span class="name">[233] Maria A.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S1</span>
+                    </div>
+                    <div class="row">
+                        <span class="time">20:00-20:30</span>
+                        <span class="name">[70] Davi F.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S1</span>
+                    </div>
+                </div>
+                <h3>Sábado</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">08:30-09:00</span>
+                        <span class="name">[53] Bernardo S., [227] Maria S.</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row">
+                        <span class="time">09:00-09:30</span>
+                        <span class="name">[156] Karina M., [316] Sophia C.</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row">
+                        <span class="time">09:30-10:00</span>
+                        <span class="name">[265] Nicole S.</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row">
+                        <span class="time">10:00-10:30</span>
+                        <span class="name">[110] Gerson N.</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row">
+                        <span class="time">10:30-11:00</span>
+                        <span class="name">[236] Marina M.</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="teacher-Anderson_Clayton" class="teacher-detail card">
+                <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
+                <h2>Anderson Clayton <span class="count">9.0h/semana</span></h2>
+                <h3>Quinta</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">18:00-18:30</span>
+                        <span class="name">[198] Luiz S.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">Perc.</span>
+                    </div>
+                    <div class="row">
+                        <span class="time">18:30-19:30</span>
+                        <span class="name">[81] Elisabete O., [228] Maria S.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">Perc.</span>
+                    </div>
+                    <div class="row">
+                        <span class="time">19:30-20:30</span>
+                        <span class="name">[47] Barbara A., [102] Felipe B.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">Perc.</span>
+                    </div>
+                </div>
+                <h3>Sexta</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">18:00-18:30</span>
+                        <span class="name">[226] Maria O.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">Perc.</span>
+                    </div>
+                    <div class="row">
+                        <span class="time">18:30-19:30</span>
+                        <span class="name">[163] Kauê A., [305] Sara B.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">Perc.</span>
+                    </div>
+                    <div class="row">
+                        <span class="time">20:00-21:00</span>
+                        <span class="name">[39] Arthur R., [299] Ronald N.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">Perc.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="teacher-Raffaella_Goi" class="teacher-detail card">
+                <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
+                <h2>Raffaella Goi <span class="count">6.8h/semana</span></h2>
+                <h3>Terça</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">19:30-20:00</span>
+                        <span class="name">[49] Beatriz S.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S2</span>
+                    </div>
+                    <div class="row">
+                        <span class="time">20:00-20:30</span>
+                        <span class="name">[9] Aisha B.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S2</span>
+                    </div>
+                </div>
+                <h3>Sexta</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">17:30-18:00</span>
+                        <span class="name">[49] Beatriz S.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S1</span>
+                    </div>
+                    <div class="row">
+                        <span class="time">18:00-18:30</span>
+                        <span class="name">[9] Aisha B.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S1</span>
+                    </div>
+                </div>
+                <h3>Sábado</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">08:30-09:00</span>
+                        <span class="name">[125] Isabella M., [229] Maria A.</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row">
+                        <span class="time">09:00-09:30</span>
+                        <span class="name">[272] Paola G.</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row">
+                        <span class="time">09:30-10:00</span>
+                        <span class="name">[318] Suellen T.</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row">
+                        <span class="time">10:00-10:30</span>
+                        <span class="name">[21] Ana C., [48] Beahtriz S.</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row">
+                        <span class="time">10:30-11:00</span>
+                        <span class="name">[38] Arthur D., [313] Sophia B.</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">11:00-12:30</span>
+                        <span class="name">Ensaio da Banda Amarela</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="teacher-Pablo_Beato" class="teacher-detail card">
+                <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
+                <h2>Pablo Beato <span class="count">6.5h/semana</span></h2>
+                <h3>Segunda</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">18:00-18:30</span>
+                        <span class="name">[91] Emilly O.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S2</span>
+                    </div>
+                    <div class="row">
+                        <span class="time">18:30-19:00</span>
+                        <span class="name">[60] Carlos C.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S2</span>
+                    </div>
+                    <div class="row">
+                        <span class="time">19:00-19:30</span>
+                        <span class="name">[252] Miguel A.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S2</span>
+                    </div>
+                    <div class="row">
+                        <span class="time">19:30-20:00</span>
+                        <span class="name">[214] Maria F.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S2</span>
+                    </div>
+                </div>
+                <h3>Terça</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">18:00-18:30</span>
+                        <span class="name">[147] Juan N.</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row">
+                        <span class="time">18:30-19:00</span>
+                        <span class="name">[225] Maria S.</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">19:00-20:00</span>
+                        <span class="name">Teoria 3A</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room">Grande</span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">20:00-21:00</span>
+                        <span class="name">Teoria 2</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Quarta</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">17:30-18:00</span>
+                        <span class="name">[76] Edileuza S.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S2</span>
+                    </div>
+                    <div class="row">
+                        <span class="time">18:00-18:30</span>
+                        <span class="name">[123] Ingrid M.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S2</span>
+                    </div>
+                    <div class="row">
+                        <span class="time">18:30-19:00</span>
+                        <span class="name">[10] Alex A.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S2</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="teacher-Wesley_de_Araújo" class="teacher-detail card">
+                <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
+                <h2>Wesley de Araújo <span class="count">6.2h/semana</span></h2>
+                <h3>Segunda</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 1 Preta</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">Grande</span>
+                    </div>
+                </div>
+                <h3>Quarta</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 2 roxa</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">Grande</span>
+                    </div>
+                </div>
+                <h3>Sexta</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">18:30-21:00</span>
+                        <span class="name">Ensaio extra da Banda 1 (Preta)</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="teacher-Marcos_Henrique" class="teacher-detail card">
+                <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
+                <h2>Marcos Henrique <span class="count">6.0h/semana</span></h2>
+                <h3>Quinta</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">18:30-19:30</span>
+                        <span class="name">Ensaio percussão Banda Preta</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S1</span>
+                    </div>
+                </div>
+                <h3>Sexta</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">18:30-19:00</span>
+                        <span class="name">[215] Maria S.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S1</span>
+                    </div>
+                    <div class="row">
+                        <span class="time">19:00-19:30</span>
+                        <span class="name">[230] Maria A.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S1</span>
+                    </div>
+                </div>
+                <h3>Sábado</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">08:30-09:00</span>
+                        <span class="name">[14] Alice B., [326] Tiê F., [249] Miguel L.</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row">
+                        <span class="time">09:00-09:30</span>
+                        <span class="name">[692] Anny A.</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row">
+                        <span class="time">09:30-10:00</span>
+                        <span class="name">[277] Pierre O.</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row">
+                        <span class="time">10:30-11:00</span>
+                        <span class="name">[27] Andressa O.</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">11:00-12:00</span>
+                        <span class="name">Ensaio de percussão Banda Amarela</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="teacher-Mangueirinha" class="teacher-detail card">
+                <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
+                <h2>Mangueirinha <span class="count">5.0h/semana</span></h2>
+                <h3>Segunda</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">12:00-13:00</span>
+                        <span class="name">Oficina de percussão</span>
+                        <span class="teacher">E.M. Pereira Passos</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">14:15-15:15</span>
+                        <span class="name">Oficina de percussão</span>
+                        <span class="teacher">E.M Estados Unidos</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Quarta</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">12:00-13:00</span>
+                        <span class="name">Oficina de percussão</span>
+                        <span class="teacher">E.M. Mem de Sá</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">14:30-15:30</span>
+                        <span class="name">Oficina de percussão</span>
+                        <span class="teacher">E.M. Maria Leopoldina</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">14:30-15:30</span>
+                        <span class="name">Oficina de percussão</span>
+                        <span class="teacher">E.M. Vital Brasil</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="teacher-Joe_Epstein" class="teacher-detail card">
+                <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
+                <h2>Joe Epstein <span class="count">4.5h/semana</span></h2>
+                <h3>Terça</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">17:30-18:00</span>
+                        <span class="name">[175] Larissa S.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S1</span>
+                    </div>
+                    <div class="row">
+                        <span class="time">18:00-18:30</span>
+                        <span class="name">[30] Anita A.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S1</span>
+                    </div>
+                    <div class="row">
+                        <span class="time">18:30-19:00</span>
+                        <span class="name">[283] Rafael R.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S1</span>
+                    </div>
+                    <div class="row">
+                        <span class="time">19:00-19:30</span>
+                        <span class="name">[208] Marcos C.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S1</span>
+                    </div>
+                    <div class="row">
+                        <span class="time">19:30-20:00</span>
+                        <span class="name">[285] Rafael S.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S1</span>
+                    </div>
+                    <div class="row">
+                        <span class="time">20:00-20:30</span>
+                        <span class="name">[207] Marcelo J.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S1</span>
+                    </div>
+                    <div class="row">
+                        <span class="time">20:30-21:00</span>
+                        <span class="name">[41] Arthur A.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S1</span>
+                    </div>
+                </div>
+                <h3>Quarta</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">16:30-17:00</span>
+                        <span class="name">[44] Aryelle S.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S1</span>
+                    </div>
+                    <div class="row">
+                        <span class="time">17:00-17:30</span>
+                        <span class="name">[121] Heron C.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S1</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="teacher-Henri_Patrique_de_Marzitelli" class="teacher-detail card">
+                <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
+                <h2>Henri Patrique de Marzitelli <span class="count">3.2h/semana</span></h2>
+                <h3>Segunda</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">12:00-13:00</span>
+                        <span class="name">Oficina de trombonito</span>
+                        <span class="teacher">E.M. Pereira Passos</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Quarta</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">14:30-15:30</span>
+                        <span class="name">Oficina de trombone</span>
+                        <span class="teacher">E.M. Vital Brasil</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 2 roxa</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">Grande</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="teacher-Shanso_Araújo" class="teacher-detail card">
+                <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
+                <h2>Shanso Araújo <span class="count">3.0h/semana</span></h2>
+                <h3>Terça</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">18:00-18:30</span>
+                        <span class="name">[130] Isadora N.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S2</span>
+                    </div>
+                    <div class="row">
+                        <span class="time">18:30-19:00</span>
+                        <span class="name">[335] Vitória O.</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S2</span>
+                    </div>
+                </div>
+                <h3>Sábado</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">09:30-10:00</span>
+                        <span class="name">[63] César O.</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row">
+                        <span class="time">10:00-10:30</span>
+                        <span class="name">[129] Isac S.</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row">
+                        <span class="time">11:00-11:30</span>
+                        <span class="name">[154] Kailany S.</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row">
+                        <span class="time">11:30-12:00</span>
+                        <span class="name">[162] Kauany S.</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="teacher-Nathan_Ferreira" class="teacher-detail card">
+                <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
+                <h2>Nathan Ferreira <span class="count">2.8h/semana</span></h2>
+                <h3>Segunda</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">12:00-13:00</span>
+                        <span class="name">Oficina de trombone</span>
+                        <span class="teacher">E.M. Pereira Passos</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">14:15-15:15</span>
+                        <span class="name">Oficina de trombone</span>
+                        <span class="teacher">E.M Estados Unidos</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Sábado</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">11:00-12:30</span>
+                        <span class="name">Ensaio da Banda Amarela</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="teacher-Shanso_Araujo" class="teacher-detail card">
+                <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
+                <h2>Shanso Araujo <span class="count">2.5h/semana</span></h2>
+                <h3>Quinta</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">18:30-21:00</span>
+                        <span class="name">Ensaio Banda 3 (verde)</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">Grande</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="teacher-Guidolini" class="teacher-detail card">
+                <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
+                <h2>Guidolini <span class="count">2.0h/semana</span></h2>
+                <h3>Quarta</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">19:00-21:00</span>
+                        <span class="name">[277] Pierre O.<span class="badge badge-libras">Libras</span></span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">S2</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="teacher-Dan_Di_Oliveiri" class="teacher-detail card">
+                <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
+                <h2>Dan Di Oliveiri <span class="count">1.0h/semana</span></h2>
+                <h3>Segunda</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">12:00-13:00</span>
+                        <span class="name">oficina de trompete</span>
+                        <span class="teacher">E.M. Pereira Passos</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Quarta</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">14:30-15:30</span>
+                        <span class="name">Oficina de trompete</span>
+                        <span class="teacher">E.M. Maria Leopoldina</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="teacher-Tiago_Azevedo" class="teacher-detail card">
+                <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
+                <h2>Tiago Azevedo <span class="count">1.0h/semana</span></h2>
+                <h3>Segunda</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">18:30-19:30</span>
+                        <span class="name">Aula técnica percussão Banda 1 Preta</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">Perc.</span>
+                    </div>
+                </div>
+                <h3>Quarta</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">18:30-19:30</span>
+                        <span class="name">Ensaio de percussão Banda 2 roxa</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">Perc.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="teacher-Uyra_La_Rosa" class="teacher-detail card">
+                <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
+                <h2>Uyrá La Rosa <span class="count">1.0h/semana</span></h2>
+                <h3>Segunda</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">18:30-19:30</span>
+                        <span class="name">Aula técnica percussão Banda 1 Preta</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">Perc.</span>
+                    </div>
+                </div>
+                <h3>Quarta</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">18:30-19:30</span>
+                        <span class="name">Ensaio de percussão Banda 2 roxa</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">Perc.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="teacher-Andre_Sena" class="teacher-detail card">
+                <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
+                <h2>André Sena <span class="count">1.0h/semana</span></h2>
+                <h3>Sábado</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">09:30-10:30</span>
+                        <span class="name">Teoria Curvelo 1<span class="badge badge-libras">Libras</span></span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="section-escolas" class="content-section">
+            <div class="card">
+                <h2>Estados Unidos <span class="count">2 oficinas</span></h2>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Seg 14:15-15:15</span>
+                        <span class="name">Oficina de trombone</span>
+                        <span class="teacher">Nathan</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">Seg 14:15-15:15</span>
+                        <span class="name">Oficina de percussão</span>
+                        <span class="teacher">Mangueirinha</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <h2>Maria Leopoldina <span class="count">2 oficinas</span></h2>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Qua 14:30-15:30</span>
+                        <span class="name">Oficina de trompete</span>
+                        <span class="teacher">Dan</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">Qua 14:30-15:30</span>
+                        <span class="name">Oficina de percussão</span>
+                        <span class="teacher">Mangueirinha</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <h2>Mem de Sá <span class="count">1 oficinas</span></h2>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Qua 12:00-13:00</span>
+                        <span class="name">Oficina de percussão</span>
+                        <span class="teacher">Mangueirinha</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <h2>Pereira Passos <span class="count">4 oficinas</span></h2>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Seg 12:00-13:00</span>
+                        <span class="name">Oficina de trombone</span>
+                        <span class="teacher">Nathan</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">Seg 12:00-13:00</span>
+                        <span class="name">Oficina de trombonito</span>
+                        <span class="teacher">Henri</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">Seg 12:00-13:00</span>
+                        <span class="name">Oficina de percussão</span>
+                        <span class="teacher">Mangueirinha</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">Seg 12:00-12:00</span>
+                        <span class="name">oficina de trompete</span>
+                        <span class="teacher">Dan</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <h2>Vital Brasil <span class="count">2 oficinas</span></h2>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Qua 14:30-15:30</span>
+                        <span class="name">Oficina de trombone</span>
+                        <span class="teacher">Henri</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">Qua 14:30-15:30</span>
+                        <span class="name">Oficina de percussão</span>
+                        <span class="teacher">Mangueirinha</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p class="footer">Atualizado: 29/01/2026 · Alterações → contacte Tom</p>
+    </div>
+
+    <script>
+        function showSection(name) {
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('section-' + name).classList.add('active');
+            event.target.classList.add('active');
+            // Reset teacher view when switching tabs
+            if (name === 'professor') {
+                hideTeacher();
+            }
+        }
+
+        function showTeacher(teacherId) {
+            document.getElementById('teacher-list').style.display = 'none';
+            document.querySelectorAll('.teacher-detail').forEach(d => d.classList.remove('active'));
+            document.getElementById('teacher-' + teacherId).classList.add('active');
+        }
+
+        function hideTeacher() {
+            document.getElementById('teacher-list').style.display = 'block';
+            document.querySelectorAll('.teacher-detail').forEach(d => d.classList.remove('active'));
+        }
+    </script>
+</body>
+</html>
