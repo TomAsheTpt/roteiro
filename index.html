@@ -32,30 +32,6 @@
             font-size: 1em;
         }
 
-        /* Stats */
-        .stats {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        .stat {
-            background: rgba(255,255,255,0.05);
-            padding: 12px 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-        .stat-number {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #FEF100;
-        }
-        .stat-label {
-            color: rgba(255,255,255,0.6);
-            font-size: 0.9em;
-        }
-
         /* Tabs */
         .tabs {
             display: flex;
@@ -332,21 +308,6 @@
     <div class="container">
         <h1>Horários 2026</h1>
         <p class="subtitle">Aulas particulares e atividades em grupo</p>
-
-        <div class="stats">
-            <div class="stat">
-                <div class="stat-number">73</div>
-                <div class="stat-label">aulas</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number">70</div>
-                <div class="stat-label">alunos</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number">8</div>
-                <div class="stat-label">professores</div>
-            </div>
-        </div>
 
         <div class="tabs">
             <div class="tab active" onclick="showSection('dia')">Por Dia</div>
@@ -1435,16 +1396,16 @@
                         <span class="name">Dan Di Oliveiri →</span>
                         <span class="hours">1.0h</span>
                     </div>
-                    <div class="teacher-chip" onclick="showTeacher('Tiago_Azevedo')">
-                        <span class="name">Tiago Azevedo →</span>
+                    <div class="teacher-chip" onclick="showTeacher('Andre_Sena')">
+                        <span class="name">André Sena →</span>
                         <span class="hours">1.0h</span>
                     </div>
                     <div class="teacher-chip" onclick="showTeacher('Uyra_La_Rosa')">
                         <span class="name">Uyrá La Rosa →</span>
                         <span class="hours">1.0h</span>
                     </div>
-                    <div class="teacher-chip" onclick="showTeacher('Andre_Sena')">
-                        <span class="name">André Sena →</span>
+                    <div class="teacher-chip" onclick="showTeacher('Tiago_Azevedo')">
+                        <span class="name">Tiago Azevedo →</span>
                         <span class="hours">1.0h</span>
                     </div>
                 </div>
@@ -2132,25 +2093,16 @@
                 </div>
             </div>
 
-            <div id="teacher-Tiago_Azevedo" class="teacher-detail card">
+            <div id="teacher-Andre_Sena" class="teacher-detail card">
                 <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
-                <h2>Tiago Azevedo <span class="count">1.0h/semana</span></h2>
-                <h3>Segunda</h3>
+                <h2>André Sena <span class="count">1.0h/semana</span></h2>
+                <h3>Sábado</h3>
                 <div class="lessons">
                     <div class="row activity">
-                        <span class="time">18:30-19:30</span>
-                        <span class="name">Aula técnica percussão Banda 1 Preta</span>
-                        <span class="teacher">Casa Tom</span>
-                        <span class="room">Perc.</span>
-                    </div>
-                </div>
-                <h3>Quarta</h3>
-                <div class="lessons">
-                    <div class="row activity">
-                        <span class="time">18:30-19:30</span>
-                        <span class="name">Ensaio de percussão Banda 2 roxa</span>
-                        <span class="teacher">Casa Tom</span>
-                        <span class="room">Perc.</span>
+                        <span class="time">09:30-10:30</span>
+                        <span class="name">Teoria Curvelo 1<span class="badge badge-libras">Libras</span></span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
                     </div>
                 </div>
             </div>
@@ -2178,16 +2130,25 @@
                 </div>
             </div>
 
-            <div id="teacher-Andre_Sena" class="teacher-detail card">
+            <div id="teacher-Tiago_Azevedo" class="teacher-detail card">
                 <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
-                <h2>André Sena <span class="count">1.0h/semana</span></h2>
-                <h3>Sábado</h3>
+                <h2>Tiago Azevedo <span class="count">1.0h/semana</span></h2>
+                <h3>Segunda</h3>
                 <div class="lessons">
                     <div class="row activity">
-                        <span class="time">09:30-10:30</span>
-                        <span class="name">Teoria Curvelo 1<span class="badge badge-libras">Libras</span></span>
-                        <span class="teacher">Curvelo</span>
-                        <span class="room"></span>
+                        <span class="time">18:30-19:30</span>
+                        <span class="name">Aula técnica percussão Banda 1 Preta</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">Perc.</span>
+                    </div>
+                </div>
+                <h3>Quarta</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">18:30-19:30</span>
+                        <span class="name">Ensaio de percussão Banda 2 roxa</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">Perc.</span>
                     </div>
                 </div>
             </div>
