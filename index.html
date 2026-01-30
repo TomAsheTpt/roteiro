@@ -280,6 +280,104 @@
             font-size: 0.85em;
         }
 
+        /* Student search */
+        .search-box {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+            font-size: 1em;
+            margin-bottom: 20px;
+        }
+        .search-box:focus {
+            outline: none;
+            border-color: #FEF100;
+            background: rgba(255,255,255,0.08);
+        }
+        .search-box::placeholder {
+            color: rgba(255,255,255,0.4);
+        }
+        .student-list {
+            display: none;
+        }
+        .student-list.active {
+            display: block;
+        }
+        .student-item {
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .student-item:hover {
+            background: rgba(255,255,255,0.08);
+        }
+        .student-item .id {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85em;
+            margin-right: 8px;
+        }
+        .student-item .band {
+            color: #62CC3C;
+            font-size: 0.85em;
+        }
+        .student-detail {
+            display: none;
+        }
+        .student-detail.active {
+            display: block;
+        }
+        .student-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .student-info {
+            flex: 1;
+        }
+        .student-info .band-name {
+            color: #62CC3C;
+            font-size: 0.95em;
+            margin-top: 5px;
+        }
+        .student-info .instrument {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9em;
+        }
+        .copy-btn {
+            background: rgba(37, 211, 102, 0.15);
+            border: 1px solid rgba(37, 211, 102, 0.3);
+            color: #25D366;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+        .copy-btn:hover {
+            background: rgba(37, 211, 102, 0.25);
+        }
+        .copy-btn.copied {
+            background: rgba(37, 211, 102, 0.3);
+        }
+        .no-results {
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            padding: 40px;
+        }
+
         /* Mobile */
         @media (max-width: 600px) {
             body { padding: 12px; font-size: 15px; }
@@ -314,6 +412,7 @@
             <div class="tab" onclick="showSection('local')">Por Local</div>
             <div class="tab" onclick="showSection('professor')">Por Professor</div>
             <div class="tab" onclick="showSection('escolas')">Escolas</div>
+            <div class="tab" onclick="showSection('aluno')">Por Aluno</div>
         </div>
 
         <div id="section-dia" class="content-section active">
@@ -1278,7 +1377,7 @@
                         <span class="time">19:00-20:00</span>
                         <span class="name">Teoria 3A<span class="badge badge-group">grupo</span></span>
                         <span class="teacher">Pablo</span>
-                        <span class="room">Grande</span>
+                        <span class="room"></span>
                     </div>
                     <div class="row activity">
                         <span class="time">20:00-21:00</span>
@@ -1413,20 +1512,20 @@
                         <span class="name">Guidolini →</span>
                         <span class="hours">2.0h</span>
                     </div>
-                    <div class="teacher-chip" onclick="showTeacher('Tiago_Azevedo')">
-                        <span class="name">Tiago Azevedo →</span>
-                        <span class="hours">1.0h</span>
-                    </div>
                     <div class="teacher-chip" onclick="showTeacher('Dan_Di_Oliveiri')">
                         <span class="name">Dan Di Oliveiri →</span>
                         <span class="hours">1.0h</span>
                     </div>
-                    <div class="teacher-chip" onclick="showTeacher('Uyra_La_Rosa')">
-                        <span class="name">Uyrá La Rosa →</span>
-                        <span class="hours">1.0h</span>
-                    </div>
                     <div class="teacher-chip" onclick="showTeacher('Andre_Sena')">
                         <span class="name">André Sena →</span>
+                        <span class="hours">1.0h</span>
+                    </div>
+                    <div class="teacher-chip" onclick="showTeacher('Tiago_Azevedo')">
+                        <span class="name">Tiago Azevedo →</span>
+                        <span class="hours">1.0h</span>
+                    </div>
+                    <div class="teacher-chip" onclick="showTeacher('Uyra_La_Rosa')">
+                        <span class="name">Uyrá La Rosa →</span>
                         <span class="hours">1.0h</span>
                     </div>
                 </div>
@@ -1732,7 +1831,7 @@
                         <span class="time">19:00-20:00</span>
                         <span class="name">Teoria 3A</span>
                         <span class="teacher">Casa Silvia</span>
-                        <span class="room">Grande</span>
+                        <span class="room"></span>
                     </div>
                     <div class="row activity">
                         <span class="time">20:00-21:00</span>
@@ -2097,29 +2196,6 @@
                 </div>
             </div>
 
-            <div id="teacher-Tiago_Azevedo" class="teacher-detail card">
-                <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
-                <h2>Tiago Azevedo <span class="count">1.0h/semana</span></h2>
-                <h3>Segunda</h3>
-                <div class="lessons">
-                    <div class="row activity">
-                        <span class="time">18:30-19:30</span>
-                        <span class="name">Aula técnica percussão Banda 1 Preta</span>
-                        <span class="teacher">Casa Tom</span>
-                        <span class="room">Perc.</span>
-                    </div>
-                </div>
-                <h3>Quarta</h3>
-                <div class="lessons">
-                    <div class="row activity">
-                        <span class="time">18:30-19:30</span>
-                        <span class="name">Ensaio de percussão Banda 2 roxa</span>
-                        <span class="teacher">Casa Tom</span>
-                        <span class="room">Perc.</span>
-                    </div>
-                </div>
-            </div>
-
             <div id="teacher-Dan_Di_Oliveiri" class="teacher-detail card">
                 <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
                 <h2>Dan Di Oliveiri <span class="count">1.0h/semana</span></h2>
@@ -2143,9 +2219,23 @@
                 </div>
             </div>
 
-            <div id="teacher-Uyra_La_Rosa" class="teacher-detail card">
+            <div id="teacher-Andre_Sena" class="teacher-detail card">
                 <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
-                <h2>Uyrá La Rosa <span class="count">1.0h/semana</span></h2>
+                <h2>André Sena <span class="count">1.0h/semana</span></h2>
+                <h3>Sábado</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">09:30-10:30</span>
+                        <span class="name">Teoria Curvelo 1<span class="badge badge-libras">Libras</span></span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="teacher-Tiago_Azevedo" class="teacher-detail card">
+                <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
+                <h2>Tiago Azevedo <span class="count">1.0h/semana</span></h2>
                 <h3>Segunda</h3>
                 <div class="lessons">
                     <div class="row activity">
@@ -2166,16 +2256,25 @@
                 </div>
             </div>
 
-            <div id="teacher-Andre_Sena" class="teacher-detail card">
+            <div id="teacher-Uyra_La_Rosa" class="teacher-detail card">
                 <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
-                <h2>André Sena <span class="count">1.0h/semana</span></h2>
-                <h3>Sábado</h3>
+                <h2>Uyrá La Rosa <span class="count">1.0h/semana</span></h2>
+                <h3>Segunda</h3>
                 <div class="lessons">
                     <div class="row activity">
-                        <span class="time">09:30-10:30</span>
-                        <span class="name">Teoria Curvelo 1<span class="badge badge-libras">Libras</span></span>
-                        <span class="teacher">Curvelo</span>
-                        <span class="room"></span>
+                        <span class="time">18:30-19:30</span>
+                        <span class="name">Aula técnica percussão Banda 1 Preta</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">Perc.</span>
+                    </div>
+                </div>
+                <h3>Quarta</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">18:30-19:30</span>
+                        <span class="name">Ensaio de percussão Banda 2 roxa</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">Perc.</span>
                     </div>
                 </div>
             </div>
@@ -2275,6 +2374,3130 @@
             </div>
         </div>
 
+        <div id="section-aluno" class="content-section">
+            <div class="card">
+                <h2>Buscar Aluno</h2>
+                <input type="text" class="search-box" id="student-search" placeholder="Digite nome ou ID do aluno..." oninput="searchStudents()">
+                <div id="student-list" class="student-list">
+                    <div class="student-item" data-name="aisha matos barril" data-id="9" onclick="showStudent(9)">
+                        <div><span class="id">[9]</span> Aisha Matos Barril</div>
+                        <span class="band">Banda Verde</span>
+                    </div>
+                    <div class="student-item" data-name="alex lopes de araújo" data-id="10" onclick="showStudent(10)">
+                        <div><span class="id">[10]</span> Alex Lopes de Araújo</div>
+                        <span class="band">Banda Preta</span>
+                    </div>
+                    <div class="student-item" data-name="alice sabino bonfim" data-id="14" onclick="showStudent(14)">
+                        <div><span class="id">[14]</span> Alice Sabino Bonfim</div>
+                        <span class="band">Banda Amarela</span>
+                    </div>
+                    <div class="student-item" data-name="ana laura andrade clemente" data-id="21" onclick="showStudent(21)">
+                        <div><span class="id">[21]</span> Ana Laura Andrade Clemente</div>
+                        <span class="band">Banda Amarela</span>
+                    </div>
+                    <div class="student-item" data-name="andressa de assis oliveira" data-id="27" onclick="showStudent(27)">
+                        <div><span class="id">[27]</span> Andressa de Assis Oliveira</div>
+                        <span class="band">Banda Amarela</span>
+                    </div>
+                    <div class="student-item" data-name="anita novaes alijó" data-id="30" onclick="showStudent(30)">
+                        <div><span class="id">[30]</span> Anita Novaes Alijó</div>
+                        <span class="band">Banda Roxa</span>
+                    </div>
+                    <div class="student-item" data-name="anny sophia chagas de azevedo" data-id="692" onclick="showStudent(692)">
+                        <div><span class="id">[692]</span> Anny Sophia Chagas De Azevedo</div>
+                        <span class="band"></span>
+                    </div>
+                    <div class="student-item" data-name="arthur bezerra de sousa dias" data-id="38" onclick="showStudent(38)">
+                        <div><span class="id">[38]</span> Arthur Bezerra de Sousa Dias</div>
+                        <span class="band">Banda Amarela</span>
+                    </div>
+                    <div class="student-item" data-name="arthur julio batista de oliveira do ramos" data-id="39" onclick="showStudent(39)">
+                        <div><span class="id">[39]</span> Arthur Julio Batista de Oliveira do Ramos</div>
+                        <span class="band">Banda Roxa</span>
+                    </div>
+                    <div class="student-item" data-name="arthur lopes de araújo" data-id="41" onclick="showStudent(41)">
+                        <div><span class="id">[41]</span> Arthur Lopes de Araújo</div>
+                        <span class="band">Banda Roxa</span>
+                    </div>
+                    <div class="student-item" data-name="aryelle luiza de oliveira de souza" data-id="44" onclick="showStudent(44)">
+                        <div><span class="id">[44]</span> Aryelle Luiza de Oliveira de Souza</div>
+                        <span class="band">Banda Preta</span>
+                    </div>
+                    <div class="student-item" data-name="barbara lauanne mendes andré" data-id="47" onclick="showStudent(47)">
+                        <div><span class="id">[47]</span> Barbara Lauanne Mendes André</div>
+                        <span class="band">Banda Preta</span>
+                    </div>
+                    <div class="student-item" data-name="beahtriz milagres ramos dos santos" data-id="48" onclick="showStudent(48)">
+                        <div><span class="id">[48]</span> Beahtriz Milagres Ramos dos Santos</div>
+                        <span class="band">Banda Amarela</span>
+                    </div>
+                    <div class="student-item" data-name="beatriz costa nogueira dos santos" data-id="49" onclick="showStudent(49)">
+                        <div><span class="id">[49]</span> Beatriz Costa Nogueira dos Santos</div>
+                        <span class="band">Banda Verde</span>
+                    </div>
+                    <div class="student-item" data-name="bernardo lucca figueiredo de souza" data-id="53" onclick="showStudent(53)">
+                        <div><span class="id">[53]</span> Bernardo Lucca Figueiredo de Souza</div>
+                        <span class="band">Grupo Semente</span>
+                    </div>
+                    <div class="student-item" data-name="carlos henrique de castro cavalcante" data-id="60" onclick="showStudent(60)">
+                        <div><span class="id">[60]</span> Carlos Henrique de Castro Cavalcante</div>
+                        <span class="band">Banda Roxa</span>
+                    </div>
+                    <div class="student-item" data-name="daniella vitoria da silva celestrino" data-id="66" onclick="showStudent(66)">
+                        <div><span class="id">[66]</span> Daniella Vitoria da Silva Celestrino</div>
+                        <span class="band">Banda Amarela</span>
+                    </div>
+                    <div class="student-item" data-name="davi leandro costa freitas" data-id="70" onclick="showStudent(70)">
+                        <div><span class="id">[70]</span> Davi Leandro Costa Freitas</div>
+                        <span class="band">Banda Preta</span>
+                    </div>
+                    <div class="student-item" data-name="edileuza maria da silva" data-id="76" onclick="showStudent(76)">
+                        <div><span class="id">[76]</span> Edileuza Maria da Silva</div>
+                        <span class="band">Banda Preta</span>
+                    </div>
+                    <div class="student-item" data-name="elisabete ramos de oliveira" data-id="81" onclick="showStudent(81)">
+                        <div><span class="id">[81]</span> Elisabete Ramos de Oliveira</div>
+                        <span class="band">Banda Preta</span>
+                    </div>
+                    <div class="student-item" data-name="emilly teixeira de assis oliveira" data-id="91" onclick="showStudent(91)">
+                        <div><span class="id">[91]</span> Emilly Teixeira de Assis Oliveira</div>
+                        <span class="band">Banda Roxa</span>
+                    </div>
+                    <div class="student-item" data-name="emilly vitória ferreira de lira" data-id="92" onclick="showStudent(92)">
+                        <div><span class="id">[92]</span> Emilly Vitória Ferreira de Lira</div>
+                        <span class="band">Banda Preta</span>
+                    </div>
+                    <div class="student-item" data-name="felipe matos barril" data-id="102" onclick="showStudent(102)">
+                        <div><span class="id">[102]</span> Felipe Matos Barril</div>
+                        <span class="band">Banda Preta</span>
+                    </div>
+                    <div class="student-item" data-name="gerson silveira neto" data-id="110" onclick="showStudent(110)">
+                        <div><span class="id">[110]</span> Gerson Silveira Neto</div>
+                        <span class="band">Banda Amarela</span>
+                    </div>
+                    <div class="student-item" data-name="gustavo gomes dos santos" data-id="116" onclick="showStudent(116)">
+                        <div><span class="id">[116]</span> Gustavo Gomes dos Santos</div>
+                        <span class="band">Banda Verde</span>
+                    </div>
+                    <div class="student-item" data-name="heron de souza carvalho da cruz" data-id="121" onclick="showStudent(121)">
+                        <div><span class="id">[121]</span> Heron de Souza Carvalho da Cruz</div>
+                        <span class="band">Banda Preta</span>
+                    </div>
+                    <div class="student-item" data-name="ingrid gomes de mesquita" data-id="123" onclick="showStudent(123)">
+                        <div><span class="id">[123]</span> Ingrid Gomes de Mesquita</div>
+                        <span class="band">Banda Preta</span>
+                    </div>
+                    <div class="student-item" data-name="isabella frança maia" data-id="125" onclick="showStudent(125)">
+                        <div><span class="id">[125]</span> Isabella França Maia</div>
+                        <span class="band">Banda Amarela</span>
+                    </div>
+                    <div class="student-item" data-name="isac nunes da silva" data-id="129" onclick="showStudent(129)">
+                        <div><span class="id">[129]</span> Isac Nunes da Silva</div>
+                        <span class="band">Banda Amarela</span>
+                    </div>
+                    <div class="student-item" data-name="isadora da silva nascimento" data-id="130" onclick="showStudent(130)">
+                        <div><span class="id">[130]</span> Isadora da Silva Nascimento</div>
+                        <span class="band">Banda Verde</span>
+                    </div>
+                    <div class="student-item" data-name="joão pedro ferreira martins" data-id="139" onclick="showStudent(139)">
+                        <div><span class="id">[139]</span> João Pedro Ferreira Martins</div>
+                        <span class="band">Banda Verde</span>
+                    </div>
+                    <div class="student-item" data-name="juan bento nascimento naszewski" data-id="147" onclick="showStudent(147)">
+                        <div><span class="id">[147]</span> Juan Bento Nascimento Naszewski</div>
+                        <span class="band">Banda Preta</span>
+                    </div>
+                    <div class="student-item" data-name="kailany rodrigues de sousa" data-id="154" onclick="showStudent(154)">
+                        <div><span class="id">[154]</span> Kailany Rodrigues de Sousa</div>
+                        <span class="band">Grupo Semente</span>
+                    </div>
+                    <div class="student-item" data-name="karina lúcia soares moreno" data-id="156" onclick="showStudent(156)">
+                        <div><span class="id">[156]</span> Karina Lúcia Soares Moreno</div>
+                        <span class="band">Grupo Semente</span>
+                    </div>
+                    <div class="student-item" data-name="kauany cristina rodrigues de sousa" data-id="162" onclick="showStudent(162)">
+                        <div><span class="id">[162]</span> Kauany Cristina Rodrigues de Sousa</div>
+                        <span class="band">Grupo Semente</span>
+                    </div>
+                    <div class="student-item" data-name="kauê alexandro santos alves" data-id="163" onclick="showStudent(163)">
+                        <div><span class="id">[163]</span> Kauê Alexandro Santos Alves</div>
+                        <span class="band">Banda Roxa</span>
+                    </div>
+                    <div class="student-item" data-name="larissa paiva da silva" data-id="175" onclick="showStudent(175)">
+                        <div><span class="id">[175]</span> Larissa Paiva da Silva</div>
+                        <span class="band">Banda Roxa</span>
+                    </div>
+                    <div class="student-item" data-name="larissa teixeira lopes neves" data-id="176" onclick="showStudent(176)">
+                        <div><span class="id">[176]</span> Larissa Teixeira Lopes Neves</div>
+                        <span class="band">Grupo Semente</span>
+                    </div>
+                    <div class="student-item" data-name="letícia ferreira de barros" data-id="181" onclick="showStudent(181)">
+                        <div><span class="id">[181]</span> Letícia Ferreira de Barros</div>
+                        <span class="band">Banda Roxa</span>
+                    </div>
+                    <div class="student-item" data-name="lucia dos santos thomaz" data-id="194" onclick="showStudent(194)">
+                        <div><span class="id">[194]</span> Lucia dos Santos Thomaz</div>
+                        <span class="band">Banda Preta</span>
+                    </div>
+                    <div class="student-item" data-name="luiz henrique lopes da silva" data-id="198" onclick="showStudent(198)">
+                        <div><span class="id">[198]</span> Luiz Henrique Lopes da Silva</div>
+                        <span class="band">Banda Preta</span>
+                    </div>
+                    <div class="student-item" data-name="marcelo pereira júnior" data-id="207" onclick="showStudent(207)">
+                        <div><span class="id">[207]</span> Marcelo Pereira Júnior</div>
+                        <span class="band">Banda Preta</span>
+                    </div>
+                    <div class="student-item" data-name="marcos felipe andrade clemente" data-id="208" onclick="showStudent(208)">
+                        <div><span class="id">[208]</span> Marcos Felipe Andrade Clemente</div>
+                        <span class="band">Banda Preta</span>
+                    </div>
+                    <div class="student-item" data-name="maria antonia nadaf de vasconcellos nunes freire" data-id="214" onclick="showStudent(214)">
+                        <div><span class="id">[214]</span> Maria Antonia Nadaf de Vasconcellos Nunes Freire</div>
+                        <span class="band">Banda Roxa</span>
+                    </div>
+                    <div class="student-item" data-name="maria antônia machado monteiro maia" data-id="213" onclick="showStudent(213)">
+                        <div><span class="id">[213]</span> Maria Antônia Machado Monteiro Maia</div>
+                        <span class="band">Banda Preta</span>
+                    </div>
+                    <div class="student-item" data-name="maria antônia ribeiro coelho de souza e silva" data-id="215" onclick="showStudent(215)">
+                        <div><span class="id">[215]</span> Maria Antônia Ribeiro Coelho de Souza e Silva</div>
+                        <span class="band">Banda Verde</span>
+                    </div>
+                    <div class="student-item" data-name="maria eduarda santos da silva" data-id="225" onclick="showStudent(225)">
+                        <div><span class="id">[225]</span> Maria Eduarda Santos da Silva</div>
+                        <span class="band">Banda Preta</span>
+                    </div>
+                    <div class="student-item" data-name="maria fernanda bezerra de oliveira" data-id="226" onclick="showStudent(226)">
+                        <div><span class="id">[226]</span> Maria Fernanda Bezerra de Oliveira</div>
+                        <span class="band">Banda Roxa</span>
+                    </div>
+                    <div class="student-item" data-name="maria fernanda de oliveira da silva" data-id="227" onclick="showStudent(227)">
+                        <div><span class="id">[227]</span> Maria Fernanda de Oliveira da Silva</div>
+                        <span class="band">Grupo Semente</span>
+                    </div>
+                    <div class="student-item" data-name="maria helena oliveira santana" data-id="228" onclick="showStudent(228)">
+                        <div><span class="id">[228]</span> Maria Helena Oliveira Santana</div>
+                        <span class="band">Banda Preta</span>
+                    </div>
+                    <div class="student-item" data-name="maria júlia gomes alcântara" data-id="229" onclick="showStudent(229)">
+                        <div><span class="id">[229]</span> Maria Júlia Gomes Alcântara</div>
+                        <span class="band">Banda Amarela</span>
+                    </div>
+                    <div class="student-item" data-name="maria luiza de souza araújo" data-id="230" onclick="showStudent(230)">
+                        <div><span class="id">[230]</span> Maria Luiza de Souza Araújo</div>
+                        <span class="band">Banda Verde</span>
+                    </div>
+                    <div class="student-item" data-name="maria manuele da silva cordeiro" data-id="232" onclick="showStudent(232)">
+                        <div><span class="id">[232]</span> Maria Manuele da Silva Cordeiro</div>
+                        <span class="band">Banda Verde</span>
+                    </div>
+                    <div class="student-item" data-name="maria rita lemos almeida" data-id="233" onclick="showStudent(233)">
+                        <div><span class="id">[233]</span> Maria Rita Lemos Almeida</div>
+                        <span class="band">Banda Preta</span>
+                    </div>
+                    <div class="student-item" data-name="marina machado monteiro maia" data-id="236" onclick="showStudent(236)">
+                        <div><span class="id">[236]</span> Marina Machado Monteiro Maia</div>
+                        <span class="band">Grupo Semente</span>
+                    </div>
+                    <div class="student-item" data-name="miguel freitas lira" data-id="249" onclick="showStudent(249)">
+                        <div><span class="id">[249]</span> Miguel Freitas Lira</div>
+                        <span class="band">Banda Amarela</span>
+                    </div>
+                    <div class="student-item" data-name="miguel miletson dos santos araujo" data-id="252" onclick="showStudent(252)">
+                        <div><span class="id">[252]</span> Miguel Miletson dos Santos Araujo</div>
+                        <span class="band">Banda Roxa</span>
+                    </div>
+                    <div class="student-item" data-name="nicole mendes de oliveira da silva" data-id="265" onclick="showStudent(265)">
+                        <div><span class="id">[265]</span> Nicole Mendes de Oliveira da Silva</div>
+                        <span class="band">Banda Amarela</span>
+                    </div>
+                    <div class="student-item" data-name="paola peixoto alves graciano" data-id="272" onclick="showStudent(272)">
+                        <div><span class="id">[272]</span> Paola Peixoto Alves Graciano</div>
+                        <span class="band">Banda Amarela</span>
+                    </div>
+                    <div class="student-item" data-name="pierre frança de oliveira" data-id="277" onclick="showStudent(277)">
+                        <div><span class="id">[277]</span> Pierre França de Oliveira</div>
+                        <span class="band">Banda Amarela</span>
+                    </div>
+                    <div class="student-item" data-name="rafael alves queiroz rodrigues" data-id="283" onclick="showStudent(283)">
+                        <div><span class="id">[283]</span> Rafael Alves Queiroz Rodrigues</div>
+                        <span class="band">Banda Roxa</span>
+                    </div>
+                    <div class="student-item" data-name="rafael dos santos silva" data-id="285" onclick="showStudent(285)">
+                        <div><span class="id">[285]</span> Rafael dos Santos Silva</div>
+                        <span class="band">Banda Preta</span>
+                    </div>
+                    <div class="student-item" data-name="raissa mendes de oliveira da silva" data-id="290" onclick="showStudent(290)">
+                        <div><span class="id">[290]</span> Raissa Mendes de Oliveira da Silva</div>
+                        <span class="band">Banda Verde</span>
+                    </div>
+                    <div class="student-item" data-name="rayane souza borges" data-id="292" onclick="showStudent(292)">
+                        <div><span class="id">[292]</span> Rayane Souza Borges</div>
+                        <span class="band">Banda Roxa</span>
+                    </div>
+                    <div class="student-item" data-name="ronald daniel pires do nascimento" data-id="299" onclick="showStudent(299)">
+                        <div><span class="id">[299]</span> Ronald Daniel Pires do Nascimento</div>
+                        <span class="band">Banda Roxa</span>
+                    </div>
+                    <div class="student-item" data-name="ryan cantoni nogueira" data-id="300" onclick="showStudent(300)">
+                        <div><span class="id">[300]</span> Ryan Cantoni Nogueira</div>
+                        <span class="band">Banda Roxa</span>
+                    </div>
+                    <div class="student-item" data-name="ryan pereira" data-id="301" onclick="showStudent(301)">
+                        <div><span class="id">[301]</span> Ryan Pereira</div>
+                        <span class="band">Banda Preta</span>
+                    </div>
+                    <div class="student-item" data-name="sara santos barros" data-id="305" onclick="showStudent(305)">
+                        <div><span class="id">[305]</span> Sara Santos Barros</div>
+                        <span class="band">Banda Roxa</span>
+                    </div>
+                    <div class="student-item" data-name="sophia morais de freitas borges" data-id="313" onclick="showStudent(313)">
+                        <div><span class="id">[313]</span> Sophia Morais de Freitas Borges</div>
+                        <span class="band">Banda Amarela</span>
+                    </div>
+                    <div class="student-item" data-name="sophia torres cunha" data-id="316" onclick="showStudent(316)">
+                        <div><span class="id">[316]</span> Sophia Torres Cunha</div>
+                        <span class="band">Grupo Semente</span>
+                    </div>
+                    <div class="student-item" data-name="suellen gustavo pena teixeira" data-id="318" onclick="showStudent(318)">
+                        <div><span class="id">[318]</span> Suellen Gustavo Pena Teixeira</div>
+                        <span class="band">Banda Amarela</span>
+                    </div>
+                    <div class="student-item" data-name="tiê nascimento fontes" data-id="326" onclick="showStudent(326)">
+                        <div><span class="id">[326]</span> Tiê Nascimento Fontes</div>
+                        <span class="band">Banda Amarela</span>
+                    </div>
+                    <div class="student-item" data-name="valentina flor pimentel diniz" data-id="328" onclick="showStudent(328)">
+                        <div><span class="id">[328]</span> Valentina Flor Pimentel Diniz</div>
+                        <span class="band">Banda Roxa</span>
+                    </div>
+                    <div class="student-item" data-name="vitória matos oliveira" data-id="335" onclick="showStudent(335)">
+                        <div><span class="id">[335]</span> Vitória Matos Oliveira</div>
+                        <span class="band">Banda Verde</span>
+                    </div>
+                </div>
+                <div id="no-results" class="no-results" style="display: none;">Nenhum aluno encontrado</div>
+            </div>
+
+            <div id="student-9" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[9] Aisha Matos Barril</h2>
+                        <div class="band-name">Banda Verde</div>
+                        <div class="instrument">🎺 Trompete</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [9] Aisha Matos Barril\nBanda Verde\n\n🎺 Aula: Ter 20:00-20:30 (Raffaella, Tom)\n🎺 Aula: Sex 18:00-18:30 (Raffaella, Tom)\n🎵 Ensaio: Qui 18:30-21:00 (Assunção)\n📖 Teoria: Ter 19:00-20:00 (Silvia)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Terça 20:00-20:30</span>
+                        <span class="name">🎺 Raffaella Goi</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row">
+                        <span class="time">Sexta 18:00-18:30</span>
+                        <span class="name">🎺 Raffaella Goi</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Quinta 18:30-21:00</span>
+                        <span class="name">Ensaio Banda 3 (verde)</span>
+                        <span class="teacher">Assunção</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 19:00-20:00</span>
+                        <span class="name">Teoria 3A</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-10" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[10] Alex Lopes de Araújo</h2>
+                        <div class="band-name">Banda Preta</div>
+                        <div class="instrument">🎵 Trombone</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [10] Alex Lopes de Araújo\nBanda Preta\n\n🎵 Aula: Qua 18:30-19:00 (Pablo, Silvia)\n🎵 Ensaio: Seg 18:30-21:00 (Tom)\n🎵 Ensaio: Sex 18:30-21:00 (Silvia)\n📖 Teoria: Ter 20:00-21:00 (Tom)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Quarta 18:30-19:00</span>
+                        <span class="name">🎵 Pablo Beato</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Segunda 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 1 Preta</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">Sexta 18:30-21:00</span>
+                        <span class="name">Ensaio extra da Banda 1 (Preta)</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 20:00-21:00</span>
+                        <span class="name">Teoria 3B</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-14" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[14] Alice Sabino Bonfim</h2>
+                        <div class="band-name">Banda Amarela</div>
+                        <div class="instrument">🥁 Caixa</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [14] Alice Sabino Bonfim\nBanda Amarela\n\n🥁 Aula: Sáb 08:30-09:00 (Marcos, Curvelo)\n🎵 Ensaio: Sáb 11:00-12:30 (Curvelo)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sábado 08:30-09:00</span>
+                        <span class="name">🥁 Marcos Henrique</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Sábado 11:00-12:30</span>
+                        <span class="name">Ensaio da Banda Amarela</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-21" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[21] Ana Laura Andrade Clemente</h2>
+                        <div class="band-name">Banda Amarela</div>
+                        <div class="instrument">🎺 Trompete</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [21] Ana Laura Andrade Clemente\nBanda Amarela\n\n🎺 Aula: Sáb 10:00-10:30 (Raffaella, Curvelo)\n🎵 Ensaio: Sáb 11:00-12:30 (Curvelo)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sábado 10:00-10:30</span>
+                        <span class="name">🎺 Raffaella Goi</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Sábado 11:00-12:30</span>
+                        <span class="name">Ensaio da Banda Amarela</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-27" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[27] Andressa de Assis Oliveira</h2>
+                        <div class="band-name">Banda Amarela</div>
+                        <div class="instrument">🥁 Percussão (geral)</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [27] Andressa de Assis Oliveira\nBanda Amarela\n\n🥁 Aula: Sáb 10:30-11:00 (Marcos, Curvelo)\n🎵 Ensaio: Sáb 11:00-12:30 (Curvelo)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sábado 10:30-11:00</span>
+                        <span class="name">🥁 Marcos Henrique</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Sábado 11:00-12:30</span>
+                        <span class="name">Ensaio da Banda Amarela</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-30" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[30] Anita Novaes Alijó</h2>
+                        <div class="band-name">Banda Roxa</div>
+                        <div class="instrument">🎺 Trompete</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [30] Anita Novaes Alijó\nBanda Roxa\n\n🎺 Aula: Ter 18:00-18:30 (Joe, Tom)\n🎵 Ensaio: Qua 18:30-21:00 (Tom)\n📖 Teoria: Ter 19:00-20:00 (Silvia)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Terça 18:00-18:30</span>
+                        <span class="name">🎺 Joe Epstein</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Quarta 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 2 roxa</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 19:00-20:00</span>
+                        <span class="name">Teoria 3A</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-692" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[692] Anny Sophia Chagas De Azevedo</h2>
+                        <div class="band-name">Sem banda</div>
+                        <div class="instrument"> </div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [692] Anny Sophia Chagas De Azevedo\n\n🎵 Aula: Sáb 09:00-09:30 (Marcos, Curvelo)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sábado 09:00-09:30</span>
+                        <span class="name"> Marcos Henrique</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-38" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[38] Arthur Bezerra de Sousa Dias</h2>
+                        <div class="band-name">Banda Amarela</div>
+                        <div class="instrument">🎺 Trompete</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [38] Arthur Bezerra de Sousa Dias\nBanda Amarela\n\n🎺 Aula: Sáb 10:30-11:00 (Raffaella, Curvelo)\n🎵 Ensaio: Sáb 11:00-12:30 (Curvelo)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sábado 10:30-11:00</span>
+                        <span class="name">🎺 Raffaella Goi</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Sábado 11:00-12:30</span>
+                        <span class="name">Ensaio da Banda Amarela</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-39" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[39] Arthur Julio Batista de Oliveira do Ramos</h2>
+                        <div class="band-name">Banda Roxa</div>
+                        <div class="instrument">🥁 Surdo</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [39] Arthur Julio Batista de Oliveira do Ramos\nBanda Roxa\n\n🥁 Aula: Sex 20:00-21:00 (Anderson, Tom)\n🎵 Ensaio: Qua 18:30-21:00 (Tom)\n📖 Teoria: Ter 19:00-20:00 (Tom)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sexta 20:00-21:00</span>
+                        <span class="name">🥁 Anderson Clayton</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Quarta 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 2 roxa</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 19:00-20:00</span>
+                        <span class="name">Teoria 1</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-41" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[41] Arthur Lopes de Araújo</h2>
+                        <div class="band-name">Banda Roxa</div>
+                        <div class="instrument">🎺 Trompete</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [41] Arthur Lopes de Araújo\nBanda Roxa\n\n🎺 Aula: Ter 20:30-21:00 (Joe, Tom)\n🎵 Ensaio: Qua 18:30-21:00 (Tom)\n📖 Teoria: Ter 19:00-20:00 (Silvia)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Terça 20:30-21:00</span>
+                        <span class="name">🎺 Joe Epstein</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Quarta 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 2 roxa</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 19:00-20:00</span>
+                        <span class="name">Teoria 3A</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-44" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[44] Aryelle Luiza de Oliveira de Souza</h2>
+                        <div class="band-name">Banda Preta</div>
+                        <div class="instrument">🎺 Trompete</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [44] Aryelle Luiza de Oliveira de Souza\nBanda Preta\n\n🎺 Aula: Qua 16:30-17:00 (Joe, Silvia)\n🎵 Ensaio: Seg 18:30-21:00 (Tom)\n🎵 Ensaio: Sex 18:30-21:00 (Silvia)\n📖 Teoria: Ter 20:00-21:00 (Tom)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Quarta 16:30-17:00</span>
+                        <span class="name">🎺 Joe Epstein</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Segunda 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 1 Preta</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">Sexta 18:30-21:00</span>
+                        <span class="name">Ensaio extra da Banda 1 (Preta)</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 20:00-21:00</span>
+                        <span class="name">Teoria 3B</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-47" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[47] Barbara Lauanne Mendes André</h2>
+                        <div class="band-name">Banda Preta</div>
+                        <div class="instrument">🥁 Surdo</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [47] Barbara Lauanne Mendes André\nBanda Preta\n\n🥁 Aula: Qui 19:30-20:30 (Anderson, Tom)\n🎵 Ensaio: Seg 18:30-21:00 (Tom)\n🎵 Ensaio: Sex 18:30-21:00 (Silvia)\n📖 Teoria: Ter 19:00-20:00 (Silvia)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Quinta 19:30-20:30</span>
+                        <span class="name">🥁 Anderson Clayton</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Segunda 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 1 Preta</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">Sexta 18:30-21:00</span>
+                        <span class="name">Ensaio extra da Banda 1 (Preta)</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 19:00-20:00</span>
+                        <span class="name">Teoria 3A</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-48" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[48] Beahtriz Milagres Ramos dos Santos</h2>
+                        <div class="band-name">Banda Amarela</div>
+                        <div class="instrument">🎺 Trompete</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [48] Beahtriz Milagres Ramos dos Santos\nBanda Amarela\n\n🎺 Aula: Sáb 10:00-10:30 (Raffaella, Curvelo)\n🎵 Ensaio: Sáb 11:00-12:30 (Curvelo)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sábado 10:00-10:30</span>
+                        <span class="name">🎺 Raffaella Goi</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Sábado 11:00-12:30</span>
+                        <span class="name">Ensaio da Banda Amarela</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-49" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[49] Beatriz Costa Nogueira dos Santos</h2>
+                        <div class="band-name">Banda Verde</div>
+                        <div class="instrument">🎺 Trompete</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [49] Beatriz Costa Nogueira dos Santos\nBanda Verde\n\n🎺 Aula: Ter 20:30-21:00 (Raffaella, Tom)\n🎺 Aula: Sex 17:30-18:00 (Raffaella, Tom)\n🎵 Ensaio: Qui 18:30-21:00 (Assunção)\n📖 Teoria: Ter 19:00-20:00 (Silvia)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Terça 20:30-21:00</span>
+                        <span class="name">🎺 Raffaella Goi</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row">
+                        <span class="time">Sexta 17:30-18:00</span>
+                        <span class="name">🎺 Raffaella Goi</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Quinta 18:30-21:00</span>
+                        <span class="name">Ensaio Banda 3 (verde)</span>
+                        <span class="teacher">Assunção</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 19:00-20:00</span>
+                        <span class="name">Teoria 3A</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-53" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[53] Bernardo Lucca Figueiredo de Souza</h2>
+                        <div class="band-name">Grupo Semente</div>
+                        <div class="instrument">🥁 Caixa</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [53] Bernardo Lucca Figueiredo de Souza\nGrupo Semente\n\n🥁 Aula: Sáb 08:30-09:00 (Joana, Curvelo)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sábado 08:30-09:00</span>
+                        <span class="name">🥁 Joana Saraiva</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-60" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[60] Carlos Henrique de Castro Cavalcante</h2>
+                        <div class="band-name">Banda Roxa</div>
+                        <div class="instrument">🎵 Trombone</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [60] Carlos Henrique de Castro Cavalcante\nBanda Roxa\n\n🎵 Aula: Seg 18:30-19:00 (Pablo, Silvia)\n🎵 Ensaio: Qua 18:30-21:00 (Tom)\n📖 Teoria: Ter 20:00-21:00 (Silvia)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Segunda 18:30-19:00</span>
+                        <span class="name">🎵 Pablo Beato</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Quarta 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 2 roxa</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 20:00-21:00</span>
+                        <span class="name">Teoria 2</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-66" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[66] Daniella Vitoria da Silva Celestrino</h2>
+                        <div class="band-name">Banda Amarela</div>
+                        <div class="instrument">🥁 Surdo</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [66] Daniella Vitoria da Silva Celestrino\nBanda Amarela\n\n🎵 Ensaio: Sáb 11:00-12:30 (Curvelo)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Sábado 11:00-12:30</span>
+                        <span class="name">Ensaio da Banda Amarela</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-70" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[70] Davi Leandro Costa Freitas</h2>
+                        <div class="band-name">Banda Preta</div>
+                        <div class="instrument">🎷 Sax Barítono</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [70] Davi Leandro Costa Freitas\nBanda Preta\n\n🎷 Aula: Qua 20:00-20:30 (Joana, Silvia)\n🎵 Ensaio: Seg 18:30-21:00 (Tom)\n🎵 Ensaio: Sex 18:30-21:00 (Silvia)\n📖 Teoria: Ter 19:00-20:00 (Tom)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Quarta 20:00-20:30</span>
+                        <span class="name">🎷 Joana Saraiva</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Segunda 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 1 Preta</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">Sexta 18:30-21:00</span>
+                        <span class="name">Ensaio extra da Banda 1 (Preta)</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 19:00-20:00</span>
+                        <span class="name">Teoria 1</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-76" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[76] Edileuza Maria da Silva</h2>
+                        <div class="band-name">Banda Preta</div>
+                        <div class="instrument">🎵 Trombone</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [76] Edileuza Maria da Silva\nBanda Preta\n\n🎵 Aula: Qua 17:30-18:00 (Pablo, Silvia)\n🎵 Ensaio: Seg 18:30-21:00 (Tom)\n🎵 Ensaio: Sex 18:30-21:00 (Silvia)\n📖 Teoria: Ter 20:00-21:00 (Tom)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Quarta 17:30-18:00</span>
+                        <span class="name">🎵 Pablo Beato</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Segunda 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 1 Preta</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">Sexta 18:30-21:00</span>
+                        <span class="name">Ensaio extra da Banda 1 (Preta)</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 20:00-21:00</span>
+                        <span class="name">Teoria 3B</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-81" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[81] Elisabete Ramos de Oliveira</h2>
+                        <div class="band-name">Banda Preta</div>
+                        <div class="instrument">🥁 Surdo</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [81] Elisabete Ramos de Oliveira\nBanda Preta\n\n🥁 Aula: Qui 18:30-19:30 (Anderson, Tom)\n🎵 Ensaio: Seg 18:30-21:00 (Tom)\n🎵 Ensaio: Sex 18:30-21:00 (Silvia)\n📖 Teoria: Ter 19:00-20:00 (Tom)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Quinta 18:30-19:30</span>
+                        <span class="name">🥁 Anderson Clayton</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Segunda 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 1 Preta</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">Sexta 18:30-21:00</span>
+                        <span class="name">Ensaio extra da Banda 1 (Preta)</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 19:00-20:00</span>
+                        <span class="name">Teoria 1</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-91" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[91] Emilly Teixeira de Assis Oliveira</h2>
+                        <div class="band-name">Banda Roxa</div>
+                        <div class="instrument">🎵 Trombone</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [91] Emilly Teixeira de Assis Oliveira\nBanda Roxa\n\n🎵 Aula: Seg 18:00-18:30 (Pablo, Silvia)\n🎵 Ensaio: Qua 18:30-21:00 (Tom)\n📖 Teoria: Ter 19:00-20:00 (Tom)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Segunda 18:00-18:30</span>
+                        <span class="name">🎵 Pablo Beato</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Quarta 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 2 roxa</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 19:00-20:00</span>
+                        <span class="name">Teoria 1</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-92" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[92] Emilly Vitória Ferreira de Lira</h2>
+                        <div class="band-name">Banda Preta</div>
+                        <div class="instrument">🎷 Sax Tenor</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [92] Emilly Vitória Ferreira de Lira\nBanda Preta\n\n🎷 Aula: Seg 18:00-18:30 (Joana, Silvia)\n🎵 Ensaio: Seg 18:30-21:00 (Tom)\n🎵 Ensaio: Sex 18:30-21:00 (Silvia)\n📖 Teoria: Ter 20:00-21:00 (Silvia)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Segunda 18:00-18:30</span>
+                        <span class="name">🎷 Joana Saraiva</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Segunda 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 1 Preta</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">Sexta 18:30-21:00</span>
+                        <span class="name">Ensaio extra da Banda 1 (Preta)</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 20:00-21:00</span>
+                        <span class="name">Teoria 2</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-102" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[102] Felipe Matos Barril</h2>
+                        <div class="band-name">Banda Preta</div>
+                        <div class="instrument">🥁 Caixa</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [102] Felipe Matos Barril\nBanda Preta\n\n🥁 Aula: Qui 19:30-20:30 (Anderson, Tom)\n🎵 Ensaio: Seg 18:30-21:00 (Tom)\n🎵 Ensaio: Sex 18:30-21:00 (Silvia)\n📖 Teoria: Ter 20:00-21:00 (Tom)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Quinta 19:30-20:30</span>
+                        <span class="name">🥁 Anderson Clayton</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Segunda 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 1 Preta</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">Sexta 18:30-21:00</span>
+                        <span class="name">Ensaio extra da Banda 1 (Preta)</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 20:00-21:00</span>
+                        <span class="name">Teoria 3B</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-110" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[110] Gerson Silveira Neto</h2>
+                        <div class="band-name">Banda Amarela</div>
+                        <div class="instrument">🎷 Sax Alto</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [110] Gerson Silveira Neto\nBanda Amarela\n\n🎷 Aula: Sáb 10:00-10:30 (Joana, Curvelo)\n🎵 Ensaio: Sáb 11:00-12:30 (Curvelo)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sábado 10:00-10:30</span>
+                        <span class="name">🎷 Joana Saraiva</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Sábado 11:00-12:30</span>
+                        <span class="name">Ensaio da Banda Amarela</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-116" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[116] Gustavo Gomes dos Santos</h2>
+                        <div class="band-name">Banda Verde</div>
+                        <div class="instrument">🎵 Trombone</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [116] Gustavo Gomes dos Santos\nBanda Verde\n\n🎵 Ensaio: Qui 18:30-21:00 (Assunção)\n📖 Teoria: Ter 20:00-21:00 (Silvia)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Quinta 18:30-21:00</span>
+                        <span class="name">Ensaio Banda 3 (verde)</span>
+                        <span class="teacher">Assunção</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 20:00-21:00</span>
+                        <span class="name">Teoria 2</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-121" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[121] Heron de Souza Carvalho da Cruz</h2>
+                        <div class="band-name">Banda Preta</div>
+                        <div class="instrument">🎺 Trompete</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [121] Heron de Souza Carvalho da Cruz\nBanda Preta\n\n🎺 Aula: Qua 17:00-17:30 (Joe, Silvia)\n🎵 Ensaio: Seg 18:30-21:00 (Tom)\n🎵 Ensaio: Sex 18:30-21:00 (Silvia)\n📖 Teoria: Ter 20:00-21:00 (Tom)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Quarta 17:00-17:30</span>
+                        <span class="name">🎺 Joe Epstein</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Segunda 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 1 Preta</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">Sexta 18:30-21:00</span>
+                        <span class="name">Ensaio extra da Banda 1 (Preta)</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 20:00-21:00</span>
+                        <span class="name">Teoria 3B</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-123" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[123] Ingrid Gomes de Mesquita</h2>
+                        <div class="band-name">Banda Preta</div>
+                        <div class="instrument">🎵 Trombone</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [123] Ingrid Gomes de Mesquita\nBanda Preta\n\n🎵 Aula: Qua 18:00-18:30 (Pablo, Silvia)\n🎵 Ensaio: Seg 18:30-21:00 (Tom)\n🎵 Ensaio: Sex 18:30-21:00 (Silvia)\n📖 Teoria: Ter 20:00-21:00 (Tom)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Quarta 18:00-18:30</span>
+                        <span class="name">🎵 Pablo Beato</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Segunda 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 1 Preta</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">Sexta 18:30-21:00</span>
+                        <span class="name">Ensaio extra da Banda 1 (Preta)</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 20:00-21:00</span>
+                        <span class="name">Teoria 3B</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-125" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[125] Isabella França Maia</h2>
+                        <div class="band-name">Banda Amarela</div>
+                        <div class="instrument">🎺 Trompete</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [125] Isabella França Maia\nBanda Amarela\n\n🎺 Aula: Sáb 08:30-09:00 (Raffaella, Curvelo)\n🎵 Ensaio: Sáb 11:00-12:30 (Curvelo)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sábado 08:30-09:00</span>
+                        <span class="name">🎺 Raffaella Goi</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Sábado 11:00-12:30</span>
+                        <span class="name">Ensaio da Banda Amarela</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-129" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[129] Isac Nunes da Silva</h2>
+                        <div class="band-name">Banda Amarela</div>
+                        <div class="instrument">🎵 Trombone</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [129] Isac Nunes da Silva\nBanda Amarela\n\n🎵 Aula: Sáb 10:00-10:30 (Shanso, Curvelo)\n🎵 Ensaio: Sáb 11:00-12:30 (Curvelo)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sábado 10:00-10:30</span>
+                        <span class="name">🎵 Shanso Araújo</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Sábado 11:00-12:30</span>
+                        <span class="name">Ensaio da Banda Amarela</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-130" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[130] Isadora da Silva Nascimento</h2>
+                        <div class="band-name">Banda Verde</div>
+                        <div class="instrument">🎵 Trombone</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [130] Isadora da Silva Nascimento\nBanda Verde\n\n🎵 Aula: Ter 18:00-18:30 (Shanso, Tom)\n🎵 Ensaio: Qui 18:30-21:00 (Assunção)\n📖 Teoria: Ter 19:00-20:00 (Tom)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Terça 18:00-18:30</span>
+                        <span class="name">🎵 Shanso Araújo</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Quinta 18:30-21:00</span>
+                        <span class="name">Ensaio Banda 3 (verde)</span>
+                        <span class="teacher">Assunção</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 19:00-20:00</span>
+                        <span class="name">Teoria 1</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-139" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[139] João Pedro Ferreira Martins</h2>
+                        <div class="band-name">Banda Verde</div>
+                        <div class="instrument">🎷 Sax Tenor</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [139] João Pedro Ferreira Martins\nBanda Verde\n\n🎷 Aula: Ter 18:00-18:30 (Joana, Tom)\n🎵 Ensaio: Qui 18:30-21:00 (Assunção)\n📖 Teoria: Ter 20:00-21:00 (Silvia)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Terça 18:00-18:30</span>
+                        <span class="name">🎷 Joana Saraiva</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Quinta 18:30-21:00</span>
+                        <span class="name">Ensaio Banda 3 (verde)</span>
+                        <span class="teacher">Assunção</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 20:00-21:00</span>
+                        <span class="name">Teoria 2</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-147" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[147] Juan Bento Nascimento Naszewski</h2>
+                        <div class="band-name">Banda Preta</div>
+                        <div class="instrument">🎵 Trombone</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [147] Juan Bento Nascimento Naszewski\nBanda Preta\n\n🎵 Aula: Ter 18:00-18:30 (Pablo, Silvia)\n🎵 Ensaio: Seg 18:30-21:00 (Tom)\n🎵 Ensaio: Sex 18:30-21:00 (Silvia)\n📖 Teoria: Ter 20:00-21:00 (Tom)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Terça 18:00-18:30</span>
+                        <span class="name">🎵 Pablo Beato</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Segunda 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 1 Preta</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">Sexta 18:30-21:00</span>
+                        <span class="name">Ensaio extra da Banda 1 (Preta)</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 20:00-21:00</span>
+                        <span class="name">Teoria 3B</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-154" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[154] Kailany Rodrigues de Sousa</h2>
+                        <div class="band-name">Grupo Semente</div>
+                        <div class="instrument">🎵 Trombone</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [154] Kailany Rodrigues de Sousa\nGrupo Semente\n\n🎵 Aula: Sáb 11:00-11:30 (Shanso, Curvelo)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sábado 11:00-11:30</span>
+                        <span class="name">🎵 Shanso Araújo</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-156" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[156] Karina Lúcia Soares Moreno</h2>
+                        <div class="band-name">Grupo Semente</div>
+                        <div class="instrument">🥁 Surdo</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [156] Karina Lúcia Soares Moreno\nGrupo Semente\n\n🥁 Aula: Sáb 09:00-09:30 (Joana, Curvelo)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sábado 09:00-09:30</span>
+                        <span class="name">🥁 Joana Saraiva</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-162" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[162] Kauany Cristina Rodrigues de Sousa</h2>
+                        <div class="band-name">Grupo Semente</div>
+                        <div class="instrument">🎵 Trombone</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [162] Kauany Cristina Rodrigues de Sousa\nGrupo Semente\n\n🎵 Aula: Sáb 11:30-12:00 (Shanso, Curvelo)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sábado 11:30-12:00</span>
+                        <span class="name">🎵 Shanso Araújo</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-163" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[163] Kauê Alexandro Santos Alves</h2>
+                        <div class="band-name">Banda Roxa</div>
+                        <div class="instrument">🥁 Surdo</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [163] Kauê Alexandro Santos Alves\nBanda Roxa\n\n🥁 Aula: Sex 18:30-19:30 (Anderson, Tom)\n🎵 Ensaio: Qua 18:30-21:00 (Tom)\n📖 Teoria: Ter 19:00-20:00 (Tom)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sexta 18:30-19:30</span>
+                        <span class="name">🥁 Anderson Clayton</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Quarta 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 2 roxa</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 19:00-20:00</span>
+                        <span class="name">Teoria 1</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-175" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[175] Larissa Paiva da Silva</h2>
+                        <div class="band-name">Banda Roxa</div>
+                        <div class="instrument">🎺 Trompete</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [175] Larissa Paiva da Silva\nBanda Roxa\n\n🎺 Aula: Ter 17:30-18:00 (Joe, Tom)\n🎵 Ensaio: Qua 18:30-21:00 (Tom)\n📖 Teoria: Ter 19:00-20:00 (Silvia)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Terça 17:30-18:00</span>
+                        <span class="name">🎺 Joe Epstein</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Quarta 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 2 roxa</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 19:00-20:00</span>
+                        <span class="name">Teoria 3A</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-176" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[176] Larissa Teixeira Lopes Neves</h2>
+                        <div class="band-name">Grupo Semente</div>
+                        <div class="instrument">🎺 Trompete</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [176] Larissa Teixeira Lopes Neves\nGrupo Semente\n', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+            </div>
+
+            <div id="student-181" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[181] Letícia Ferreira de Barros</h2>
+                        <div class="band-name">Banda Roxa</div>
+                        <div class="instrument">🎷 Sax Tenor</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [181] Letícia Ferreira de Barros\nBanda Roxa\n\n🎷 Aula: Seg 19:30-20:00 (Joana, Silvia)\n🎵 Ensaio: Qua 18:30-21:00 (Tom)\n📖 Teoria: Ter 19:00-20:00 (Tom)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Segunda 19:30-20:00</span>
+                        <span class="name">🎷 Joana Saraiva</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Quarta 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 2 roxa</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 19:00-20:00</span>
+                        <span class="name">Teoria 1</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-194" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[194] Lucia dos Santos Thomaz</h2>
+                        <div class="band-name">Banda Preta</div>
+                        <div class="instrument">🎺 Trompete</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [194] Lucia dos Santos Thomaz\nBanda Preta\n\n🎵 Ensaio: Seg 18:30-21:00 (Tom)\n🎵 Ensaio: Sex 18:30-21:00 (Silvia)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Segunda 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 1 Preta</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">Sexta 18:30-21:00</span>
+                        <span class="name">Ensaio extra da Banda 1 (Preta)</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-198" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[198] Luiz Henrique Lopes da Silva</h2>
+                        <div class="band-name">Banda Preta</div>
+                        <div class="instrument">🥁 Surdo</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [198] Luiz Henrique Lopes da Silva\nBanda Preta\n\n🥁 Aula: Qui 18:00-18:30 (Anderson, Tom)\n🎵 Ensaio: Seg 18:30-21:00 (Tom)\n🎵 Ensaio: Sex 18:30-21:00 (Silvia)\n📖 Teoria: Ter 19:00-20:00 (Tom)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Quinta 18:00-18:30</span>
+                        <span class="name">🥁 Anderson Clayton</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Segunda 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 1 Preta</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">Sexta 18:30-21:00</span>
+                        <span class="name">Ensaio extra da Banda 1 (Preta)</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 19:00-20:00</span>
+                        <span class="name">Teoria 1</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-207" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[207] Marcelo Pereira Júnior</h2>
+                        <div class="band-name">Banda Preta</div>
+                        <div class="instrument">🎺 Trompete</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [207] Marcelo Pereira Júnior\nBanda Preta\n\n🎺 Aula: Ter 20:00-20:30 (Joe, Tom)\n🎵 Ensaio: Seg 18:30-21:00 (Tom)\n🎵 Ensaio: Sex 18:30-21:00 (Silvia)\n📖 Teoria: Ter 19:00-20:00 (Silvia)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Terça 20:00-20:30</span>
+                        <span class="name">🎺 Joe Epstein</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Segunda 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 1 Preta</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">Sexta 18:30-21:00</span>
+                        <span class="name">Ensaio extra da Banda 1 (Preta)</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 19:00-20:00</span>
+                        <span class="name">Teoria 3A</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-208" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[208] Marcos Felipe Andrade Clemente</h2>
+                        <div class="band-name">Banda Preta</div>
+                        <div class="instrument">🎺 Trompete</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [208] Marcos Felipe Andrade Clemente\nBanda Preta\n\n🎺 Aula: Ter 19:00-19:30 (Joe, Tom)\n🎵 Ensaio: Seg 18:30-21:00 (Tom)\n🎵 Ensaio: Sex 18:30-21:00 (Silvia)\n📖 Teoria: Ter 20:00-21:00 (Silvia)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Terça 19:00-19:30</span>
+                        <span class="name">🎺 Joe Epstein</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Segunda 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 1 Preta</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">Sexta 18:30-21:00</span>
+                        <span class="name">Ensaio extra da Banda 1 (Preta)</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 20:00-21:00</span>
+                        <span class="name">Teoria 2</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-214" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[214] Maria Antonia Nadaf de Vasconcellos Nunes Freire</h2>
+                        <div class="band-name">Banda Roxa</div>
+                        <div class="instrument">🎵 Trombone</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [214] Maria Antonia Nadaf de Vasconcellos Nunes Freire\nBanda Roxa\n\n🎵 Aula: Seg 19:30-20:00 (Pablo, Silvia)\n🎵 Ensaio: Qua 18:30-21:00 (Tom)\n📖 Teoria: Ter 20:00-21:00 (Tom)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Segunda 19:30-20:00</span>
+                        <span class="name">🎵 Pablo Beato</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Quarta 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 2 roxa</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 20:00-21:00</span>
+                        <span class="name">Teoria 3B</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-213" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[213] Maria Antônia Machado Monteiro Maia</h2>
+                        <div class="band-name">Banda Preta</div>
+                        <div class="instrument">🎷 Sax Tenor</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [213] Maria Antônia Machado Monteiro Maia\nBanda Preta\n\n🎷 Aula: Qua 18:30-19:00 (Joana, Silvia)\n🎵 Ensaio: Seg 18:30-21:00 (Tom)\n🎵 Ensaio: Sex 18:30-21:00 (Silvia)\n📖 Teoria: Ter 20:00-21:00 (Tom)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Quarta 18:30-19:00</span>
+                        <span class="name">🎷 Joana Saraiva</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Segunda 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 1 Preta</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">Sexta 18:30-21:00</span>
+                        <span class="name">Ensaio extra da Banda 1 (Preta)</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 20:00-21:00</span>
+                        <span class="name">Teoria 3B</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-215" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[215] Maria Antônia Ribeiro Coelho de Souza e Silva</h2>
+                        <div class="band-name">Banda Verde</div>
+                        <div class="instrument">🥁 Caixa</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [215] Maria Antônia Ribeiro Coelho de Souza e Silva\nBanda Verde\n\n🥁 Aula: Sex 18:30-19:00 (Marcos, Tom)\n🎵 Ensaio: Qui 18:30-21:00 (Assunção)\n📖 Teoria: Ter 19:00-20:00 (Tom)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sexta 18:30-19:00</span>
+                        <span class="name">🥁 Marcos Henrique</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Quinta 18:30-21:00</span>
+                        <span class="name">Ensaio Banda 3 (verde)</span>
+                        <span class="teacher">Assunção</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 19:00-20:00</span>
+                        <span class="name">Teoria 1</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-225" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[225] Maria Eduarda Santos da Silva</h2>
+                        <div class="band-name">Banda Preta</div>
+                        <div class="instrument">🎵 Trombone</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [225] Maria Eduarda Santos da Silva\nBanda Preta\n\n🎵 Aula: Ter 18:30-19:00 (Pablo, Silvia)\n🎵 Ensaio: Seg 18:30-21:00 (Tom)\n🎵 Ensaio: Sex 18:30-21:00 (Silvia)\n📖 Teoria: Ter 19:00-20:00 (Silvia)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Terça 18:30-19:00</span>
+                        <span class="name">🎵 Pablo Beato</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Segunda 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 1 Preta</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">Sexta 18:30-21:00</span>
+                        <span class="name">Ensaio extra da Banda 1 (Preta)</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 19:00-20:00</span>
+                        <span class="name">Teoria 3A</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-226" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[226] Maria Fernanda Bezerra de Oliveira</h2>
+                        <div class="band-name">Banda Roxa</div>
+                        <div class="instrument">🥁 Surdo</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [226] Maria Fernanda Bezerra de Oliveira\nBanda Roxa\n\n🥁 Aula: Sex 18:00-18:30 (Anderson, Tom)\n🎵 Ensaio: Qua 18:30-21:00 (Tom)\n📖 Teoria: Ter 19:00-20:00 (Tom)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sexta 18:00-18:30</span>
+                        <span class="name">🥁 Anderson Clayton</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Quarta 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 2 roxa</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 19:00-20:00</span>
+                        <span class="name">Teoria 1</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-227" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[227] Maria Fernanda de Oliveira da Silva</h2>
+                        <div class="band-name">Grupo Semente</div>
+                        <div class="instrument">🥁 Caixa</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [227] Maria Fernanda de Oliveira da Silva\nGrupo Semente\n\n🥁 Aula: Sáb 08:30-09:00 (Joana, Curvelo)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sábado 08:30-09:00</span>
+                        <span class="name">🥁 Joana Saraiva</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-228" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[228] Maria Helena Oliveira Santana</h2>
+                        <div class="band-name">Banda Preta</div>
+                        <div class="instrument">🥁 Surdo</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [228] Maria Helena Oliveira Santana\nBanda Preta\n\n🥁 Aula: Qui 18:30-19:30 (Anderson, Tom)\n🎵 Ensaio: Seg 18:30-21:00 (Tom)\n🎵 Ensaio: Sex 18:30-21:00 (Silvia)\n📖 Teoria: Ter 20:00-21:00 (Silvia)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Quinta 18:30-19:30</span>
+                        <span class="name">🥁 Anderson Clayton</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Segunda 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 1 Preta</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">Sexta 18:30-21:00</span>
+                        <span class="name">Ensaio extra da Banda 1 (Preta)</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 20:00-21:00</span>
+                        <span class="name">Teoria 2</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-229" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[229] Maria Júlia Gomes Alcântara</h2>
+                        <div class="band-name">Banda Amarela</div>
+                        <div class="instrument">🎺 Trompete</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [229] Maria Júlia Gomes Alcântara\nBanda Amarela\n\n🎺 Aula: Sáb 08:30-09:00 (Raffaella, Curvelo)\n🎵 Ensaio: Sáb 11:00-12:30 (Curvelo)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sábado 08:30-09:00</span>
+                        <span class="name">🎺 Raffaella Goi</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Sábado 11:00-12:30</span>
+                        <span class="name">Ensaio da Banda Amarela</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-230" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[230] Maria Luiza de Souza Araújo</h2>
+                        <div class="band-name">Banda Verde</div>
+                        <div class="instrument">🥁 Surdo</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [230] Maria Luiza de Souza Araújo\nBanda Verde\n\n🥁 Aula: Sex 19:00-19:30 (Marcos, Tom)\n🎵 Ensaio: Qui 18:30-21:00 (Assunção)\n📖 Teoria: Ter 19:00-20:00 (Tom)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sexta 19:00-19:30</span>
+                        <span class="name">🥁 Marcos Henrique</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Quinta 18:30-21:00</span>
+                        <span class="name">Ensaio Banda 3 (verde)</span>
+                        <span class="teacher">Assunção</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 19:00-20:00</span>
+                        <span class="name">Teoria 1</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-232" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[232] Maria Manuele da Silva Cordeiro</h2>
+                        <div class="band-name">Banda Verde</div>
+                        <div class="instrument">🎷 Sax Alto</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [232] Maria Manuele da Silva Cordeiro\nBanda Verde\n\n🎷 Aula: Ter 18:30-19:00 (Joana, Tom)\n🎵 Ensaio: Qui 18:30-21:00 (Assunção)\n📖 Teoria: Ter 20:00-21:00 (Silvia)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Terça 18:30-19:00</span>
+                        <span class="name">🎷 Joana Saraiva</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Quinta 18:30-21:00</span>
+                        <span class="name">Ensaio Banda 3 (verde)</span>
+                        <span class="teacher">Assunção</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 20:00-21:00</span>
+                        <span class="name">Teoria 2</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-233" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[233] Maria Rita Lemos Almeida</h2>
+                        <div class="band-name">Banda Preta</div>
+                        <div class="instrument">🎷 Sax Tenor</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [233] Maria Rita Lemos Almeida\nBanda Preta\n\n🎷 Aula: Qua 19:30-20:00 (Joana, Silvia)\n🎵 Ensaio: Seg 18:30-21:00 (Tom)\n🎵 Ensaio: Sex 18:30-21:00 (Silvia)\n📖 Teoria: Ter 19:00-20:00 (Silvia)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Quarta 19:30-20:00</span>
+                        <span class="name">🎷 Joana Saraiva</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Segunda 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 1 Preta</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">Sexta 18:30-21:00</span>
+                        <span class="name">Ensaio extra da Banda 1 (Preta)</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 19:00-20:00</span>
+                        <span class="name">Teoria 3A</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-236" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[236] Marina Machado Monteiro Maia</h2>
+                        <div class="band-name">Grupo Semente</div>
+                        <div class="instrument">🥁 Caixa</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [236] Marina Machado Monteiro Maia\nGrupo Semente\n\n🥁 Aula: Sáb 10:30-11:00 (Joana, Curvelo)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sábado 10:30-11:00</span>
+                        <span class="name">🥁 Joana Saraiva</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-249" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[249] Miguel Freitas Lira</h2>
+                        <div class="band-name">Banda Amarela</div>
+                        <div class="instrument">🥁 Percussão (geral)</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [249] Miguel Freitas Lira\nBanda Amarela\n\n🥁 Aula: Sáb 08:30-09:00 (Marcos, Curvelo)\n🎵 Ensaio: Sáb 11:00-12:30 (Curvelo)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sábado 08:30-09:00</span>
+                        <span class="name">🥁 Marcos Henrique</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Sábado 11:00-12:30</span>
+                        <span class="name">Ensaio da Banda Amarela</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-252" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[252] Miguel Miletson dos Santos Araujo</h2>
+                        <div class="band-name">Banda Roxa</div>
+                        <div class="instrument">🎵 Trombone</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [252] Miguel Miletson dos Santos Araujo\nBanda Roxa\n\n🎵 Aula: Seg 19:00-19:30 (Pablo, Silvia)\n🎵 Ensaio: Qua 18:30-21:00 (Tom)\n📖 Teoria: Ter 20:00-21:00 (Silvia)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Segunda 19:00-19:30</span>
+                        <span class="name">🎵 Pablo Beato</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Quarta 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 2 roxa</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 20:00-21:00</span>
+                        <span class="name">Teoria 2</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-265" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[265] Nicole Mendes de Oliveira da Silva</h2>
+                        <div class="band-name">Banda Amarela</div>
+                        <div class="instrument">🎷 Sax Alto</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [265] Nicole Mendes de Oliveira da Silva\nBanda Amarela\n\n🎷 Aula: Sáb 09:30-10:00 (Joana, Curvelo)\n🎵 Ensaio: Sáb 11:00-12:30 (Curvelo)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sábado 09:30-10:00</span>
+                        <span class="name">🎷 Joana Saraiva</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Sábado 11:00-12:30</span>
+                        <span class="name">Ensaio da Banda Amarela</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-272" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[272] Paola Peixoto Alves Graciano</h2>
+                        <div class="band-name">Banda Amarela</div>
+                        <div class="instrument">🎺 Trompete</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [272] Paola Peixoto Alves Graciano\nBanda Amarela\n\n🎺 Aula: Sáb 09:00-09:30 (Raffaella, Curvelo)\n🎵 Ensaio: Sáb 11:00-12:30 (Curvelo)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sábado 09:00-09:30</span>
+                        <span class="name">🎺 Raffaella Goi</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Sábado 11:00-12:30</span>
+                        <span class="name">Ensaio da Banda Amarela</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-277" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[277] Pierre França de Oliveira</h2>
+                        <div class="band-name">Banda Amarela</div>
+                        <div class="instrument">🥁 Percussão (geral)</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [277] Pierre França de Oliveira\nBanda Amarela\n\n🥁 Aula: Qua 19:00-21:00 (Guidolini, Tom)\n🥁 Aula: Sáb 09:30-10:00 (Marcos, Curvelo)\n🎵 Ensaio: Sáb 11:00-12:30 (Curvelo)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Quarta 19:00-21:00</span>
+                        <span class="name">🥁 Guidolini</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row">
+                        <span class="time">Sábado 09:30-10:00</span>
+                        <span class="name">🥁 Marcos Henrique</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Sábado 11:00-12:30</span>
+                        <span class="name">Ensaio da Banda Amarela</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-283" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[283] Rafael Alves Queiroz Rodrigues</h2>
+                        <div class="band-name">Banda Roxa</div>
+                        <div class="instrument">🎺 Trompete</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [283] Rafael Alves Queiroz Rodrigues\nBanda Roxa\n\n🎺 Aula: Ter 18:30-19:00 (Joe, Tom)\n🎵 Ensaio: Qua 18:30-21:00 (Tom)\n📖 Teoria: Ter 20:00-21:00 (Tom)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Terça 18:30-19:00</span>
+                        <span class="name">🎺 Joe Epstein</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Quarta 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 2 roxa</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 20:00-21:00</span>
+                        <span class="name">Teoria 3B</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-285" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[285] Rafael dos Santos Silva</h2>
+                        <div class="band-name">Banda Preta</div>
+                        <div class="instrument">🎺 Trompete</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [285] Rafael dos Santos Silva\nBanda Preta\n\n🎺 Aula: Ter 19:30-20:00 (Joe, Tom)\n🎵 Ensaio: Seg 18:30-21:00 (Tom)\n🎵 Ensaio: Sex 18:30-21:00 (Silvia)\n📖 Teoria: Ter 20:00-21:00 (Tom)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Terça 19:30-20:00</span>
+                        <span class="name">🎺 Joe Epstein</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Segunda 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 1 Preta</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">Sexta 18:30-21:00</span>
+                        <span class="name">Ensaio extra da Banda 1 (Preta)</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 20:00-21:00</span>
+                        <span class="name">Teoria 3B</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-290" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[290] Raissa Mendes de Oliveira da Silva</h2>
+                        <div class="band-name">Banda Verde</div>
+                        <div class="instrument">🎺 Trompete</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [290] Raissa Mendes de Oliveira da Silva\nBanda Verde\n\n🎺 Aula: Ter 19:30-20:00 (Raffaella, Tom)\n🎵 Ensaio: Qui 18:30-21:00 (Assunção)\n📖 Teoria: Ter 20:00-21:00 (Silvia)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Terça 19:30-20:00</span>
+                        <span class="name">🎺 Raffaella Goi</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Quinta 18:30-21:00</span>
+                        <span class="name">Ensaio Banda 3 (verde)</span>
+                        <span class="teacher">Assunção</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 20:00-21:00</span>
+                        <span class="name">Teoria 2</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-292" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[292] Rayane Souza Borges</h2>
+                        <div class="band-name">Banda Roxa</div>
+                        <div class="instrument">🎷 Sax Tenor</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [292] Rayane Souza Borges\nBanda Roxa\n\n🎷 Aula: Seg 19:00-19:30 (Joana, Silvia)\n🎵 Ensaio: Qua 18:30-21:00 (Tom)\n📖 Teoria: Ter 20:00-21:00 (Silvia)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Segunda 19:00-19:30</span>
+                        <span class="name">🎷 Joana Saraiva</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Quarta 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 2 roxa</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 20:00-21:00</span>
+                        <span class="name">Teoria 2</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-299" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[299] Ronald Daniel Pires do Nascimento</h2>
+                        <div class="band-name">Banda Roxa</div>
+                        <div class="instrument">🥁 Surdo</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [299] Ronald Daniel Pires do Nascimento\nBanda Roxa\n\n🥁 Aula: Sex 20:00-21:00 (Anderson, Tom)\n🎵 Ensaio: Qua 18:30-21:00 (Tom)\n📖 Teoria: Ter 19:00-20:00 (Tom)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sexta 20:00-21:00</span>
+                        <span class="name">🥁 Anderson Clayton</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Quarta 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 2 roxa</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 19:00-20:00</span>
+                        <span class="name">Teoria 1</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-300" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[300] Ryan Cantoni Nogueira</h2>
+                        <div class="band-name">Banda Roxa</div>
+                        <div class="instrument">🎷 Sax Tenor</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [300] Ryan Cantoni Nogueira\nBanda Roxa\n\n🎷 Aula: Seg 18:30-19:00 (Joana, Silvia)\n🎵 Ensaio: Qua 18:30-21:00 (Tom)\n📖 Teoria: Ter 20:00-21:00 (Silvia)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Segunda 18:30-19:00</span>
+                        <span class="name">🎷 Joana Saraiva</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Quarta 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 2 roxa</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 20:00-21:00</span>
+                        <span class="name">Teoria 2</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-301" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[301] Ryan Pereira</h2>
+                        <div class="band-name">Banda Preta</div>
+                        <div class="instrument">🎷 Sax Tenor</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [301] Ryan Pereira\nBanda Preta\n\n🎷 Aula: Qua 19:00-19:30 (Joana, Silvia)\n🎵 Ensaio: Seg 18:30-21:00 (Tom)\n🎵 Ensaio: Sex 18:30-21:00 (Silvia)\n📖 Teoria: Ter 19:00-20:00 (Silvia)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Quarta 19:00-19:30</span>
+                        <span class="name">🎷 Joana Saraiva</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Segunda 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 1 Preta</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">Sexta 18:30-21:00</span>
+                        <span class="name">Ensaio extra da Banda 1 (Preta)</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 19:00-20:00</span>
+                        <span class="name">Teoria 3A</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-305" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[305] Sara Santos Barros</h2>
+                        <div class="band-name">Banda Roxa</div>
+                        <div class="instrument">🥁 Caixa</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [305] Sara Santos Barros\nBanda Roxa\n\n🥁 Aula: Sex 18:30-19:30 (Anderson, Tom)\n🎵 Ensaio: Qua 18:30-21:00 (Tom)\n📖 Teoria: Ter 19:00-20:00 (Tom)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sexta 18:30-19:30</span>
+                        <span class="name">🥁 Anderson Clayton</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Quarta 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 2 roxa</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 19:00-20:00</span>
+                        <span class="name">Teoria 1</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-313" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[313] Sophia Morais de Freitas Borges</h2>
+                        <div class="band-name">Banda Amarela</div>
+                        <div class="instrument">🎺 Trompete</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [313] Sophia Morais de Freitas Borges\nBanda Amarela\n\n🎺 Aula: Sáb 10:30-11:00 (Raffaella, Curvelo)\n🎵 Ensaio: Sáb 11:00-12:30 (Curvelo)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sábado 10:30-11:00</span>
+                        <span class="name">🎺 Raffaella Goi</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Sábado 11:00-12:30</span>
+                        <span class="name">Ensaio da Banda Amarela</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-316" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[316] Sophia Torres Cunha</h2>
+                        <div class="band-name">Grupo Semente</div>
+                        <div class="instrument">🥁 Surdo</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [316] Sophia Torres Cunha\nGrupo Semente\n\n🥁 Aula: Sáb 09:00-09:30 (Joana, Curvelo)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sábado 09:00-09:30</span>
+                        <span class="name">🥁 Joana Saraiva</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-318" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[318] Suellen Gustavo Pena Teixeira</h2>
+                        <div class="band-name">Banda Amarela</div>
+                        <div class="instrument">🎺 Trompete</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [318] Suellen Gustavo Pena Teixeira\nBanda Amarela\n\n🎺 Aula: Sáb 09:30-10:00 (Raffaella, Curvelo)\n🎵 Ensaio: Sáb 11:00-12:30 (Curvelo)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sábado 09:30-10:00</span>
+                        <span class="name">🎺 Raffaella Goi</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Sábado 11:00-12:30</span>
+                        <span class="name">Ensaio da Banda Amarela</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-326" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[326] Tiê Nascimento Fontes</h2>
+                        <div class="band-name">Banda Amarela</div>
+                        <div class="instrument">🥁 Caixa</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [326] Tiê Nascimento Fontes\nBanda Amarela\n\n🥁 Aula: Sáb 08:30-09:00 (Marcos, Curvelo)\n🎵 Ensaio: Sáb 11:00-12:30 (Curvelo)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Sábado 08:30-09:00</span>
+                        <span class="name">🥁 Marcos Henrique</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Sábado 11:00-12:30</span>
+                        <span class="name">Ensaio da Banda Amarela</span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-328" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[328] Valentina Flor Pimentel Diniz</h2>
+                        <div class="band-name">Banda Roxa</div>
+                        <div class="instrument">🎷 Sax Alto</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [328] Valentina Flor Pimentel Diniz\nBanda Roxa\n\n🎷 Aula: Seg 20:00-20:30 (Joana, Silvia)\n🎵 Ensaio: Qua 18:30-21:00 (Tom)\n📖 Teoria: Ter 20:00-21:00 (Silvia)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Segunda 20:00-20:30</span>
+                        <span class="name">🎷 Joana Saraiva</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Quarta 18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 2 roxa</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 20:00-21:00</span>
+                        <span class="name">Teoria 2</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-335" class="student-detail card">
+                <button class="back-btn" onclick="hideStudent()">← Voltar</button>
+                <div class="student-header">
+                    <div class="student-info">
+                        <h2>[335] Vitória Matos Oliveira</h2>
+                        <div class="band-name">Banda Verde</div>
+                        <div class="instrument">🎵 Trombone</div>
+                    </div>
+                    <button class="copy-btn" onclick="copySchedule('📅 Horário de [335] Vitória Matos Oliveira\nBanda Verde\n\n🎵 Aula: Ter 18:30-19:00 (Shanso, Tom)\n🎵 Ensaio: Qui 18:30-21:00 (Assunção)\n📖 Teoria: Ter 20:00-21:00 (Silvia)', this)">
+                        📋 Copiar p/ WhatsApp
+                    </button>
+                </div>
+                <h3>Aulas Particulares</h3>
+                <div class="lessons">
+                    <div class="row">
+                        <span class="time">Terça 18:30-19:00</span>
+                        <span class="name">🎵 Shanso Araújo</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Ensaios</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Quinta 18:30-21:00</span>
+                        <span class="name">Ensaio Banda 3 (verde)</span>
+                        <span class="teacher">Assunção</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Teoria</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">Terça 20:00-21:00</span>
+                        <span class="name">Teoria 2</span>
+                        <span class="teacher">Casa Silvia</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <p class="footer">Atualizado: 30/01/2026 · Alterações → contacte Tom</p>
     </div>
 
@@ -2299,6 +5522,58 @@
         function hideTeacher() {
             document.getElementById('teacher-list').style.display = 'block';
             document.querySelectorAll('.teacher-detail').forEach(d => d.classList.remove('active'));
+        }
+
+        function searchStudents() {
+            const query = document.getElementById('student-search').value.toLowerCase().trim();
+            const list = document.getElementById('student-list');
+            const noResults = document.getElementById('no-results');
+            const items = list.querySelectorAll('.student-item');
+
+            if (query.length < 2) {
+                list.classList.remove('active');
+                noResults.style.display = 'none';
+                return;
+            }
+
+            list.classList.add('active');
+            let found = 0;
+
+            items.forEach(item => {
+                const name = item.dataset.name;
+                const id = item.dataset.id;
+                if (name.includes(query) || id === query) {
+                    item.style.display = 'flex';
+                    found++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            noResults.style.display = found === 0 ? 'block' : 'none';
+        }
+
+        function showStudent(studentId) {
+            document.querySelectorAll('.student-detail').forEach(d => d.classList.remove('active'));
+            document.querySelector('.card:has(#student-search)').style.display = 'none';
+            document.getElementById('student-' + studentId).classList.add('active');
+        }
+
+        function hideStudent() {
+            document.querySelectorAll('.student-detail').forEach(d => d.classList.remove('active'));
+            document.querySelector('.card:has(#student-search)').style.display = 'block';
+        }
+
+        function copySchedule(text, btn) {
+            const decoded = text.replace(/\\n/g, '\n');
+            navigator.clipboard.writeText(decoded).then(() => {
+                btn.classList.add('copied');
+                btn.innerHTML = '✓ Copiado!';
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    btn.innerHTML = '📋 Copiar p/ WhatsApp';
+                }, 2000);
+            });
         }
     </script>
 </body>
