@@ -1018,11 +1018,6 @@
                         <div class="cell-teacher">Joe</div>
                         <div class="cell-end">até 20:00</div>
                     </div>
-                    <div class="tg-cell" style="grid-row: 6 / span 1; grid-column: 2;">
-                        <div class="cell-name">🎺 [290] Raissa S.</div>
-                        <div class="cell-teacher">Raffaella</div>
-                        <div class="cell-end">até 20:00</div>
-                    </div>
                     <div class="tg-cell" style="grid-row: 7 / span 1; grid-column: 2;">
                         <div class="cell-name">🎺 [41] Arthur A.</div>
                         <div class="cell-teacher">Joe</div>
@@ -1042,6 +1037,11 @@
                         <div class="cell-name">🎵 [335] Vitória O.</div>
                         <div class="cell-teacher">Shanso</div>
                         <div class="cell-end">até 19:00</div>
+                    </div>
+                    <div class="tg-cell" style="grid-row: 6 / span 1; grid-column: 3;">
+                        <div class="cell-name">🎺 [290] Raissa S.</div>
+                        <div class="cell-teacher">Raffaella</div>
+                        <div class="cell-end">até 20:00</div>
                     </div>
                     <div class="tg-cell" style="grid-row: 7 / span 1; grid-column: 3;">
                         <div class="cell-name">🎺 [9] Aisha B.</div>
@@ -1491,20 +1491,20 @@
                         <span class="name">Pablo Beato →</span>
                         <span class="hours">6.5h</span>
                     </div>
-                    <div class="teacher-chip" onclick="showTeacher('Wesley_de_Araújo')">
-                        <span class="name">Wesley de Araújo →</span>
-                        <span class="hours">6.2h</span>
-                    </div>
                     <div class="teacher-chip" onclick="showTeacher('Raffaella_Goi')">
                         <span class="name">Raffaella Goi →</span>
                         <span class="hours">6.2h</span>
                     </div>
-                    <div class="teacher-chip" onclick="showTeacher('Mangueirinha')">
-                        <span class="name">Mangueirinha →</span>
-                        <span class="hours">5.0h</span>
+                    <div class="teacher-chip" onclick="showTeacher('Wesley_de_Araújo')">
+                        <span class="name">Wesley de Araújo →</span>
+                        <span class="hours">6.2h</span>
                     </div>
                     <div class="teacher-chip" onclick="showTeacher('Joe_Epstein')">
                         <span class="name">Joe Epstein →</span>
+                        <span class="hours">5.0h</span>
+                    </div>
+                    <div class="teacher-chip" onclick="showTeacher('Mangueirinha')">
+                        <span class="name">Mangueirinha →</span>
                         <span class="hours">5.0h</span>
                     </div>
                     <div class="teacher-chip" onclick="showTeacher('Henri_Patrique_de_Marzitelli')">
@@ -1527,20 +1527,20 @@
                         <span class="name">Guidolini →</span>
                         <span class="hours">2.0h</span>
                     </div>
-                    <div class="teacher-chip" onclick="showTeacher('Andre_Sena')">
-                        <span class="name">André Sena →</span>
-                        <span class="hours">1.0h</span>
-                    </div>
-                    <div class="teacher-chip" onclick="showTeacher('Dan_Di_Oliveiri')">
-                        <span class="name">Dan Di Oliveiri →</span>
-                        <span class="hours">1.0h</span>
-                    </div>
                     <div class="teacher-chip" onclick="showTeacher('Tiago_Azevedo')">
                         <span class="name">Tiago Azevedo →</span>
                         <span class="hours">1.0h</span>
                     </div>
                     <div class="teacher-chip" onclick="showTeacher('Uyra_La_Rosa')">
                         <span class="name">Uyrá La Rosa →</span>
+                        <span class="hours">1.0h</span>
+                    </div>
+                    <div class="teacher-chip" onclick="showTeacher('Dan_Di_Oliveiri')">
+                        <span class="name">Dan Di Oliveiri →</span>
+                        <span class="hours">1.0h</span>
+                    </div>
+                    <div class="teacher-chip" onclick="showTeacher('Andre_Sena')">
+                        <span class="name">André Sena →</span>
                         <span class="hours">1.0h</span>
                     </div>
                     <div class="teacher-chip" onclick="showTeacher('Wesley_Silva')">
@@ -1870,38 +1870,6 @@
                 </div>
             </div>
 
-            <div id="teacher-Wesley_de_Araújo" class="teacher-detail card">
-                <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
-                <h2>Wesley de Araújo <span class="count">6.2h/semana</span></h2>
-                <h3>Segunda</h3>
-                <div class="lessons">
-                    <div class="row activity">
-                        <span class="time">18:30-21:00</span>
-                        <span class="name">Ensaio da Banda 1 Preta</span>
-                        <span class="teacher">Casa Tom</span>
-                        <span class="room">Grande</span>
-                    </div>
-                </div>
-                <h3>Quarta</h3>
-                <div class="lessons">
-                    <div class="row activity">
-                        <span class="time">18:30-21:00</span>
-                        <span class="name">Ensaio da Banda 2 roxa</span>
-                        <span class="teacher">Casa Tom</span>
-                        <span class="room">Grande</span>
-                    </div>
-                </div>
-                <h3>Sexta</h3>
-                <div class="lessons">
-                    <div class="row activity">
-                        <span class="time">18:30-21:00</span>
-                        <span class="name">Ensaio extra da Banda 1 (Preta)</span>
-                        <span class="teacher">Casa Silvia</span>
-                        <span class="room"></span>
-                    </div>
-                </div>
-            </div>
-
             <div id="teacher-Raffaella_Goi" class="teacher-detail card">
                 <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
                 <h2>Raffaella Goi <span class="count">6.2h/semana</span></h2>
@@ -1911,7 +1879,7 @@
                         <span class="time">19:30-20:00</span>
                         <span class="name">[290] Raissa S.</span>
                         <span class="teacher">Casa Tom</span>
-                        <span class="room"></span>
+                        <span class="room">S2</span>
                     </div>
                     <div class="row">
                         <span class="time">20:00-20:30</span>
@@ -1967,42 +1935,33 @@
                 </div>
             </div>
 
-            <div id="teacher-Mangueirinha" class="teacher-detail card">
+            <div id="teacher-Wesley_de_Araújo" class="teacher-detail card">
                 <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
-                <h2>Mangueirinha <span class="count">5.0h/semana</span></h2>
+                <h2>Wesley de Araújo <span class="count">6.2h/semana</span></h2>
                 <h3>Segunda</h3>
                 <div class="lessons">
                     <div class="row activity">
-                        <span class="time">12:00-13:00</span>
-                        <span class="name">Oficina de percussão</span>
-                        <span class="teacher">E.M. Pereira Passos</span>
-                        <span class="room"></span>
-                    </div>
-                    <div class="row activity">
-                        <span class="time">14:15-15:15</span>
-                        <span class="name">Oficina de percussão</span>
-                        <span class="teacher">E.M Estados Unidos</span>
-                        <span class="room"></span>
+                        <span class="time">18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 1 Preta</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">Grande</span>
                     </div>
                 </div>
                 <h3>Quarta</h3>
                 <div class="lessons">
                     <div class="row activity">
-                        <span class="time">12:00-13:00</span>
-                        <span class="name">Oficina de percussão</span>
-                        <span class="teacher">E.M. Mem de Sá</span>
-                        <span class="room"></span>
+                        <span class="time">18:30-21:00</span>
+                        <span class="name">Ensaio da Banda 2 roxa</span>
+                        <span class="teacher">Casa Tom</span>
+                        <span class="room">Grande</span>
                     </div>
+                </div>
+                <h3>Sexta</h3>
+                <div class="lessons">
                     <div class="row activity">
-                        <span class="time">14:30-15:30</span>
-                        <span class="name">Oficina de percussão</span>
-                        <span class="teacher">E.M. Maria Leopoldina</span>
-                        <span class="room"></span>
-                    </div>
-                    <div class="row activity">
-                        <span class="time">14:30-15:30</span>
-                        <span class="name">Oficina de percussão</span>
-                        <span class="teacher">E.M. Vital Brasil</span>
+                        <span class="time">18:30-21:00</span>
+                        <span class="name">Ensaio extra da Banda 1 (Preta)</span>
+                        <span class="teacher">Casa Silvia</span>
                         <span class="room"></span>
                     </div>
                 </div>
@@ -2075,6 +2034,47 @@
                         <span class="name">[30] Anita A.</span>
                         <span class="teacher">Casa Tom</span>
                         <span class="room">S1</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="teacher-Mangueirinha" class="teacher-detail card">
+                <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
+                <h2>Mangueirinha <span class="count">5.0h/semana</span></h2>
+                <h3>Segunda</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">12:00-13:00</span>
+                        <span class="name">Oficina de percussão</span>
+                        <span class="teacher">E.M. Pereira Passos</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">14:15-15:15</span>
+                        <span class="name">Oficina de percussão</span>
+                        <span class="teacher">E.M Estados Unidos</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Quarta</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">12:00-13:00</span>
+                        <span class="name">Oficina de percussão</span>
+                        <span class="teacher">E.M. Mem de Sá</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">14:30-15:30</span>
+                        <span class="name">Oficina de percussão</span>
+                        <span class="teacher">E.M. Maria Leopoldina</span>
+                        <span class="room"></span>
+                    </div>
+                    <div class="row activity">
+                        <span class="time">14:30-15:30</span>
+                        <span class="name">Oficina de percussão</span>
+                        <span class="teacher">E.M. Vital Brasil</span>
+                        <span class="room"></span>
                     </div>
                 </div>
             </div>
@@ -2212,43 +2212,6 @@
                 </div>
             </div>
 
-            <div id="teacher-Andre_Sena" class="teacher-detail card">
-                <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
-                <h2>André Sena <span class="count">1.0h/semana</span></h2>
-                <h3>Sábado</h3>
-                <div class="lessons">
-                    <div class="row activity">
-                        <span class="time">10:00-11:00</span>
-                        <span class="name">Teoria Curvelo 1<span class="badge badge-libras">Libras</span></span>
-                        <span class="teacher">Curvelo</span>
-                        <span class="room"></span>
-                    </div>
-                </div>
-            </div>
-
-            <div id="teacher-Dan_Di_Oliveiri" class="teacher-detail card">
-                <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
-                <h2>Dan Di Oliveiri <span class="count">1.0h/semana</span></h2>
-                <h3>Segunda</h3>
-                <div class="lessons">
-                    <div class="row activity">
-                        <span class="time">12:00-13:00</span>
-                        <span class="name">oficina de trompete</span>
-                        <span class="teacher">E.M. Pereira Passos</span>
-                        <span class="room"></span>
-                    </div>
-                </div>
-                <h3>Quarta</h3>
-                <div class="lessons">
-                    <div class="row activity">
-                        <span class="time">14:30-15:30</span>
-                        <span class="name">Oficina de trompete</span>
-                        <span class="teacher">E.M. Maria Leopoldina</span>
-                        <span class="room"></span>
-                    </div>
-                </div>
-            </div>
-
             <div id="teacher-Tiago_Azevedo" class="teacher-detail card">
                 <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
                 <h2>Tiago Azevedo <span class="count">1.0h/semana</span></h2>
@@ -2291,6 +2254,43 @@
                         <span class="name">Ensaio de percussão Banda 2 roxa</span>
                         <span class="teacher">Casa Tom</span>
                         <span class="room">Perc.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="teacher-Dan_Di_Oliveiri" class="teacher-detail card">
+                <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
+                <h2>Dan Di Oliveiri <span class="count">1.0h/semana</span></h2>
+                <h3>Segunda</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">12:00-13:00</span>
+                        <span class="name">oficina de trompete</span>
+                        <span class="teacher">E.M. Pereira Passos</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+                <h3>Quarta</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">14:30-15:30</span>
+                        <span class="name">Oficina de trompete</span>
+                        <span class="teacher">E.M. Maria Leopoldina</span>
+                        <span class="room"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="teacher-Andre_Sena" class="teacher-detail card">
+                <button class="back-btn" onclick="hideTeacher()">← Voltar</button>
+                <h2>André Sena <span class="count">1.0h/semana</span></h2>
+                <h3>Sábado</h3>
+                <div class="lessons">
+                    <div class="row activity">
+                        <span class="time">10:00-11:00</span>
+                        <span class="name">Teoria Curvelo 1<span class="badge badge-libras">Libras</span></span>
+                        <span class="teacher">Curvelo</span>
+                        <span class="room"></span>
                     </div>
                 </div>
             </div>
